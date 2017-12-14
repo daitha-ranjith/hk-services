@@ -18,6 +18,7 @@ class CreateTokensTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('access_token', 60)->unique();
             $table->string('label')->default('default');
+            $table->json('config');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
