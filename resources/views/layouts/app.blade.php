@@ -53,6 +53,9 @@
 
                                 <ul class="dropdown-menu">
                                     <li>
+                                        <a href="{{ route('dashboard') }}">Dashboard</a>
+                                    </li>
+                                    <li>
                                         <a href="{{ route('accounts.index') }}">Accounts</a>
                                     </li>
                                     <li>
