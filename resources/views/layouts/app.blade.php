@@ -11,6 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -57,6 +58,9 @@
                                     </li>
                                     <li>
                                         <a href="{{ route('accounts.index') }}">Accounts</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Settings</a>
                                     </li>
                                     <li>
                                         <a href="{{ route('logout') }}"
