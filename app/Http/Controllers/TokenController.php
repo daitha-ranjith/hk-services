@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Token;
+
 class TokenController extends Controller
 {
-    public function update()
+    public function update($id)
     {
-        return null;
+        $token = Token::findOrFail($id);
+
+        return redirect()->back()->withStatus('Changes successfully saved');
     }
 
     public function resetApiToken()
     {
-        $user = request()->user();
-        $user->api_token = str_random(60);
-        $user->save();
+        $token = Token::findOrFail(request()->id);
+        $token->access_token = str_random(60);
+        $token->save();
 
         return redirect()->back()->withStatus('API token has been successfully generated!');
     }

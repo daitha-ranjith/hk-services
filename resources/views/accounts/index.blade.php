@@ -33,6 +33,9 @@
                                 <div class="col-xs-8">
                                     <input type="password" class="form-control input-sm hideShowPassword-field" id="token-{{$account->id}}" name="token" value="{{ $account->access_token }}">
                                 </div>
+
+                                <input type="hidden" name="id" value="{{$account->id}}">
+
                                 <div class="col-xs-2">
                                     <button type="submit" class="btn btn-warning btn-sm regenerate-token" title="Refresh">
                                         <span class="glyphicon glyphicon-refresh"></span>
@@ -89,6 +92,8 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    <input type="hidden" name="type" value="video">
 
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
