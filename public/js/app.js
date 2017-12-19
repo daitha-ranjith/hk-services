@@ -11015,9 +11015,8 @@ module.exports = __webpack_require__(36);
 
 __webpack_require__(10);
 
-var tokenInputs = $("input[type='password']");
-$.each(function (input) {
-    $(input).hideShowPassword(false, true);
+$('.secret-password').each(function () {
+    $(this).hideShowPassword(false, true);
 });
 
 /***/ }),

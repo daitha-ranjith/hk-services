@@ -29,8 +29,9 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-default">Create</button>
+                            <div class="col-sm-offset-2 col-sm-5">
+                                <button type="submit" class="btn btn-success">Create</button>
+                                <a class="btn btn-default pull-right" href="{{ route('accounts.index') }}">Back</a>
                             </div>
                         </div>
                     </form>

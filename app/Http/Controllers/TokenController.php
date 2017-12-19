@@ -10,6 +10,8 @@ class TokenController extends Controller
     {
         $token = Token::findOrFail($id);
 
+        // if ()
+
         return redirect()->back()->withStatus('Changes successfully saved');
     }
 

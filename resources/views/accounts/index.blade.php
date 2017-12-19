@@ -29,9 +29,9 @@
                             {{ method_field('PUT') }}
 
                             <div class="form-group">
-                                <label for="token" class="col-xs-2 control-label">Token</label>
+                                <label for="token-{{$account->id}}" class="col-xs-2 control-label">Token</label>
                                 <div class="col-xs-8">
-                                    <input type="password" class="form-control input-sm hideShowPassword-field" id="token-{{$account->id}}" name="token" value="{{ $account->access_token }}">
+                                    <input type="password" class="form-control input-sm hideShowPassword-field secret-password" id="token-{{$account->id}}" name="token" value="{{ $account->access_token }}">
                                 </div>
 
                                 <input type="hidden" name="id" value="{{$account->id}}">
@@ -58,9 +58,9 @@
                                     {{ method_field('PUT') }}
 
                                     <div class="form-group{{ $errors->has('twilio_key_1') ? ' has-error' : '' }}">
-                                        <label for="name" class="col-xs-3 control-label">Twilio Key 1</label>
+                                        <label for="{{$account->id}}-twilio-key-1" class="col-xs-3 control-label">Twilio Key 1</label>
                                         <div class="col-xs-8">
-                                            <input type="text" class="form-control" id="twilio-key-1" placeholder="Key 1" name="twilio-key-1" required>
+                                            <input type="text" class="form-control" id="{{$account->id}}-twilio-key-1" placeholder="Key 1" required>
                                             @if ($errors->has('twilio_key_1'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('twilio_key_1') }}</strong>
@@ -70,9 +70,9 @@
                                     </div>
 
                                     <div class="form-group{{ $errors->has('twilio_key_2') ? ' has-error' : '' }}">
-                                        <label for="name" class="col-xs-3 control-label">Twilio Key 2</label>
+                                        <label for="{{$account->id}}-twilio-key-2" class="col-xs-3 control-label">Twilio Key 2</label>
                                         <div class="col-xs-8">
-                                            <input type="text" class="form-control" id="twilio-key-2" placeholder="Key 2" name="twilio-key-2" required>
+                                            <input type="text" class="form-control" id="{{$account->id}}-twilio-key-2" placeholder="Key 2" name="twilio-key-2" required>
                                             @if ($errors->has('twilio_key_2'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('twilio_key_2') }}</strong>
@@ -82,9 +82,9 @@
                                     </div>
 
                                     <div class="form-group{{ $errors->has('twilio_key_3') ? ' has-error' : '' }}">
-                                        <label for="name" class="col-xs-3 control-label">Twilio Key 3</label>
+                                        <label for="{{$account->id}}-twilio-key-3" class="col-xs-3 control-label">Twilio Key 3</label>
                                         <div class="col-xs-8">
-                                            <input type="text" class="form-control" id="twilio-key-3" placeholder="Key 3" name="twilio-key-3" required>
+                                            <input type="text" class="form-control" id="{{$account->id}}-twilio-key-3" placeholder="Key 3" name="twilio-key-3" required>
                                             @if ($errors->has('twilio_key_3'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('twilio_key_3') }}</strong>
