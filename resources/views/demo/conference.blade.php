@@ -78,7 +78,7 @@
                         </div>
 
                         <!-- Chat container -->
-                        <div class="col-md-4 text-center" id="bitrate">
+                        <div class="col-md-4 text-center" id="bitrate" style="display:none;">
                             <h4>Bitrate Adjustment</h4>
                             <hr>
                             <div>
@@ -106,59 +106,7 @@
     <script src="https://healthkon-video-api.herokuapp.com/public/sdk/video.1.1.min.js"></script>
 
     <script>
-        $('#bitrate').hide();
-        $('.bitrate-button').on('click', function () {
-            console.log('adjusting video bitrate to ' + $(this).text() + '..');
-        });
-
-        $('a#disconnect-button').click(function() {
-            location.reload();
-        });
-
-        $('form#conference').submit(function (e) {
-            var room = $('#room-name').val();
-
-            if (! room) {
-                alert('Enter a room name.');
-            } else {
-                e.preventDefault();
-
-                $('button#connect-button').attr('disabled', 'disabled');
-                $('a#disconnect-button').removeClass('disabled');
-
-                var identity = '{{ Auth::user()->email }}';
-
-                var video = new Video({
-                    identity: identity,
-                    room: room,
-                    localVideoContainer: 'local-video-container',
-                    remoteVideoContainer: 'remote-video-container',
-                    presenterIdentity: 'presenter@healthkon.com',
-                    presenterVideoContainer: 'remote-video-container'
-                });
-
-                video.presenterInitiation(false);
-                video.setConferenceTimeout(3600);
-
-                video.authorize('{{ $token }}').then(connected);
-
-                function connected() {
-                    video.connect().then(function (room) {
-                        var joined = video.joinRoom(room);
-
-                        if (joined.status) {
-                            $('#bitrate').show();
-                        } else {
-                            setTimeout(function () {
-                                console.log('Waiting for presenter@healthkon.com');
-                                connected();
-                            }, 2000);
-                        }
-                    });
-                }
-
-            }
-        });
+        $("#bitrate").hide(),$(".bitrate-button").on("click",function(){console.log("adjusting video bitrate to "+$(this).text()+"..")}),$("a#disconnect-button").click(function(){location.reload()}),$("form#conference").submit(function(e){function t(){i.connect().then(function(e){var o=i.joinRoom(e);o.status?$("#bitrate").show():setTimeout(function(){console.log("Waiting for presenter@healthkon.com"),t()},2e3)})}var o=$("#room-name").val();if(o){e.preventDefault(),$("button#connect-button").attr("disabled","disabled"),$("a#disconnect-button").removeClass("disabled");var n="{{ Auth::user()->email }}",i=new Video({identity:n,room:o,localVideoContainer:"local-video-container",remoteVideoContainer:"remote-video-container",presenterIdentity:"presenter@healthkon.com",presenterVideoContainer:"remote-video-container"});i.presenterInitiation(!1),i.setConferenceTimeout(3600),i.authorize("{{ $token }}").then(t)}else alert("Enter a room name.")});
     </script>
 
 @endsection
