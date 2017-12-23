@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    Click here to get into the <a href="/demo">demo</a>.
                 </div>
             </div>
         </div>

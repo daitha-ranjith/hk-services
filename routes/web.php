@@ -12,4 +12,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('tokens', 'TokenController');
 
     Route::put('reset-api-token', 'TokenController@resetApiToken')->name('reset-api-token');
+
+    Route::get('demo', function () {
+        $token = '1vLfhTU5MhVLfEou5pK0F3Ra5AFTJnvpA4qcsUmHR7LXVV9LRx9wf4GKbvTt';
+        $url = "https://healthkon-video-api.herokuapp.com/api/authorize?api_token=" . $token;
+        $data = json_decode(file_get_contents($url));
+
+        return view('demo.conference')->withToken($data->token);
+    });
 });
