@@ -13,12 +13,15 @@
         "axios": "^0.17",
         "bootstrap-sass": "^3.3.7",
         "cross-env": "^5.1",
-        "jquery": "^3.2",
+        "jquery": "^3.2.1",
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "hideshowpassword": "^2.1.1"
+        "hideshowpassword": "^2.1.1",
+        "moment": "^2.20.1",
+        "plyr": "^2.0.18",
+        "twilio-video": "^1.6.1"
     }
 }
