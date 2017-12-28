@@ -9,7 +9,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class JwtController extends Controller
 {
-    public function authenticate()
+    public function auth()
     {
         $user = request()->user();
 
@@ -23,8 +23,11 @@ class JwtController extends Controller
             return response()->json(['error' => 'Could not create token, something went wrong.'], 500);
         }
 
+        cache()->put($token, request()->access_token, 360);
+
         return response()->json([
             'token'   => $token
         ]);
     }
+
 }

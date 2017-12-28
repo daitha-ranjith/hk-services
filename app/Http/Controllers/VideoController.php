@@ -9,8 +9,6 @@ class VideoController extends Controller
 {
     public function authenticate()
     {
-        return request()->token;
-
         $identity = request()->has('identity') ? request()->identity : str_random(5);
 
         $twilio = $this->setTwilio();
