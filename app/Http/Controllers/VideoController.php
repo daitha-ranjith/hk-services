@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Services\Twilio;
-use Illuminate\Http\Request;
 
 class VideoController extends Controller
 {
@@ -17,6 +16,7 @@ class VideoController extends Controller
 
         return response()->json([
             'user_id' => request()->user()->id,
+            'identity' => $identity,
             'jwt' => $twilio->getVideoToken()
         ]);
     }

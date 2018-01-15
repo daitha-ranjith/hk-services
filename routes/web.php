@@ -13,3 +13,5 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::put('reset-api-token', 'TokenController@resetApiToken')->name('reset-api-token');
 });
+
+Route::view('test', 'demo.test');

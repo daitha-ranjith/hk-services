@@ -1,5 +1,3 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/bootstrap.css": "/css/bootstrap.css",
-    "/css/app.css": "/css/app.css"
+    "/public/sdk/video.1.0.min.js": "/public/sdk/video.1.0.min.js"
 }
