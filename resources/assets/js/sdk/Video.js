@@ -51,6 +51,7 @@ class Video {
 
     joinRoom(room) {
         this.attachLocalVideo(room.localParticipant);
+
         // room.localParticipant.tracks.forEach(track => {
         //     console.log('You, "%s", are now connected to the room', room.localParticipant.identity);
         //     // $(this.localVideoContainer).append(track.attach());
