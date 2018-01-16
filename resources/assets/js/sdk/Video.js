@@ -6,7 +6,6 @@ const TwilioVideo = require('twilio-video'),
 class Video {
     constructor(config) {
         this.checkBrowserSupport();
-
         this.checkConfig(config);
 
         this.baseUrl = 'http://localhost:9090';
@@ -111,29 +110,7 @@ class Video {
         const mediaStream = new MediaStream;
 
         participant.tracks.forEach(track => {
-            if (track.kind == 'video') {
-                video.setAttribute('id', track.id);
-                mediaStream.addTrack(track.mediaStreamTrack);
-                // player[0].on('play', function (event) {
-                //     localMedia.unpause();
-                // });
-
-                // player[0].on('pause', function (event) {
-                //     localMedia.pause();
-                // });
-
-                // $('#plyr-mic-mute').on('click', function () {
-                //     if ( localMedia.isMuted ) {
-                //         localMedia.unmute();
-                //         $('.plyr-mic-icon').toggle();
-                //         $('.plyr-mic-off-icon').toggle();
-                //     } else {
-                //         localMedia.mute();
-                //         $('.plyr-mic-icon').toggle();
-                //         $('.plyr-mic-off-icon').toggle();
-                //     }
-                // });
-            }
+            mediaStream.addTrack(track.mediaStreamTrack);
         });
 
         video.srcObject = mediaStream;
@@ -147,6 +124,35 @@ class Video {
 
         const player = plyr.setup(video, {
             html: controls
+        });
+
+        participant.tracks.forEach(track => {
+            if (track.kind == 'video') {
+                video.setAttribute('id', track.id);
+
+                player[0].on('play', event => {
+                    track.enable();
+                });
+
+                player[0].on('pause', event => {
+                    track.disable();
+                });
+            }
+
+            if (track.kind == 'audio') {
+                 $('#plyr-mic-mute').on('click', () => {
+                    if ( track.isEnabled ) {
+                        track.disable();
+                        $('.plyr-mic-icon').toggle();
+                        $('.plyr-mic-off-icon').toggle();
+                    } else {
+                        track.enable();
+                        $('.plyr-mic-icon').toggle();
+                        $('.plyr-mic-off-icon').toggle();
+                    }
+                });
+            }
+
         });
     }
 
