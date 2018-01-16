@@ -52,59 +52,68 @@ class Video {
     joinRoom(room) {
         this.attachLocalVideo(room.localParticipant);
 
-        // room.localParticipant.tracks.forEach(track => {
-        //     console.log('You, "%s", are now connected to the room', room.localParticipant.identity);
-        //     // $(this.localVideoContainer).append(track.attach());
-        //     this.attachLocalVideo(track);
-        // });
+        room.participants.forEach(participant => {
+            this.attachRemoteVideo(participant);
+        });
 
-        // room.participants.forEach(participant => {
-        //     console.log('Participant "%s" is already connected to the Room', participant.identity);
-        //     participant.on('trackAdded', track => {
-        //         $(this.remoteVideoContainer).append(track.attach());
-        //     });
-        // });
-        // // connected
-        // room.once('participantConnected', participant => {
-        //     console.log('Participant "%s" has connected to the Room', participant.identity);
-        //     participant.on('trackAdded', track => {
-        //         $(this.remoteVideoContainer).append(track.attach());
-        //     });
-        // });
-        // // disconnected
-        // room.once('participantDisconnected', participant => {
-        //     console.log('Participant "%s" has disconnected from Room', participant.identity);
-        // });
+        room.once('participantConnected', participant => {
+            this.attachRemoteVideo(participant);
+        });
+
+        room.once('participantDisconnected', participant => {
+            this.detachRemoteVideo(participant);
+        });
+    }
+
+    attachRemoteVideo(participant, track) {
+        let container = $(this.remoteVideoContainer);
+
+        const div = document.createElement('div');
+        const video = document.createElement('video');
+
+        div.setAttribute('id', participant.sid);
+        div.setAttribute('class', 'remote-video-div');
+        video.setAttribute('controls', true);
+        video.setAttribute('autoplay', true);
+
+        const mediaStream = new MediaStream;
+
+        participant.on('trackAdded', track => {
+            if (track.kind == 'video') {
+                video.setAttribute('id', track.id);
+            }
+
+            mediaStream.addTrack(track.mediaStreamTrack);
+        });
+
+        video.srcObject = mediaStream;
+
+        div.appendChild(video);
+        container.html(div);
+
+        const controls = this.getRemotePlayerControls();
+
+        plyr.setup(video, {
+            html: controls
+        });
     }
 
     attachLocalVideo(participant) {
         const container = $(this.localVideoContainer);
+
         const div =  document.createElement('div');
         const video = document.createElement('video');
-        console.log(participant.tracks);
+
+        video.setAttribute('controls', true);
+        video.setAttribute('autoplay', true);
+        video.setAttribute('muted', true);
+
+        const mediaStream = new MediaStream;
+
         participant.tracks.forEach(track => {
             if (track.kind == 'video') {
-                video.setAttribute('controls', true);
-                video.setAttribute('autoplay', true);
-                video.setAttribute('muted', true);
                 video.setAttribute('id', track.id);
-
-                const mediaStream = new MediaStream;
                 mediaStream.addTrack(track.mediaStreamTrack);
-
-                video.srcObject = mediaStream;
-
-                div.appendChild(video);
-                container.html(div);
-
-                $('body').prepend( this.getControlIcons() );
-
-                const controls = this.getLocalPlayerControls();
-
-                const player = plyr.setup(video, {
-                    html: controls
-                });
-
                 // player[0].on('play', function (event) {
                 //     localMedia.unpause();
                 // });
@@ -124,10 +133,25 @@ class Video {
                 //         $('.plyr-mic-off-icon').toggle();
                 //     }
                 // });
-
             }
-
         });
+
+        video.srcObject = mediaStream;
+
+        div.appendChild(video);
+        container.html(div);
+
+        $('body').prepend( this.getControlIcons() );
+
+        const controls = this.getLocalPlayerControls();
+
+        const player = plyr.setup(video, {
+            html: controls
+        });
+    }
+
+    detachRemoteVideo(participant) {
+        $('#' + participant.sid).remove();
     }
 
     checkConfig(config) {
@@ -151,6 +175,29 @@ class Video {
         {
             alert('Video conference is not supported by your browser. Kindly use Chrome / Firefox / Opera.');
         }
+    }
+
+    getRemotePlayerControls() {
+        return `<div class='plyr__controls'>
+                <button type='button' data-plyr='play' title='Video'>
+                    <svg><use xlink:href='#plyr-play'></use></svg>
+                    <span class='plyr__sr-only'>Play</span>
+                </button>
+                <button type='button' data-plyr='pause' title='Video'>
+                    <svg><use xlink:href='#plyr-pause'></use></svg>
+                    <span class='plyr__sr-only'>Pause</span>
+                </button>
+                <button type='button' data-plyr='mute' title='Mute'>
+                    <svg class='icon--muted'><use xlink:href='#plyr-muted'></use></svg>
+                    <svg><use xlink:href='#plyr-volume'></use></svg>
+                    <span class='plyr__sr-only'>Toggle Mute</span>
+                </button>
+                <button type='button' data-plyr='fullscreen' title='Fullscreen'>
+                    <svg class='icon--exit-fullscreen'><use xlink:href='#plyr-exit-fullscreen'></use></svg>
+                    <svg><use xlink:href='#plyr-enter-fullscreen'></use></svg>
+                    <span class='plyr__sr-only'>Toggle Fullscreen</span>
+                </button>
+            </div>`;
     }
 
     getLocalPlayerControls() {
