@@ -1,5 +1,5 @@
 @php
-    $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvYXBpL2F1dGhvcml6ZSIsImlhdCI6MTUxNjM5MzYwNCwiZXhwIjoxNTE2Mzk3MjA0LCJuYmYiOjE1MTYzOTM2MDQsImp0aSI6IlVXdHJtaDc1bEJpdmcxbWkiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.I0BQnfR56cKxIW5RPiV392dRyPLMBzwt_NS11dDocd4';
+    $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvYXBpL2F1dGhvcml6ZSIsImlhdCI6MTUxNjM5NzQzMSwiZXhwIjoxNTE2NDAxMDMxLCJuYmYiOjE1MTYzOTc0MzEsImp0aSI6InBONXZjdThwZ1RqNUFGNWMiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.PZ6mb9oTuZFqZyO_XNBvM7eD2RCWKzUaNHZqtCjdi4A';
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +13,9 @@
     <div id="local-video-container">local</div>
     <div id="remote-video-container">remote</div>
 
+    <input type="text" id="width">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.0/jquery.min.js"></script>
     <script src="/public/sdk/video.1.0.min.js"></script>
     <script>
         var video = new Video({
@@ -23,14 +26,13 @@
             presenterInitiation: true,
             presenterIdentity: 'santosh',
             presenterVideoContainer: '#presenter-video-container',
+            width: 720,
+            frameRate: 2
         });
 
         video.authenticate('{{$token}}').then(function () {
             video.connect().then(function (room) {
-                var c = video.joinRoom(room);
-                if (! c.status) {
-                    alert(c.message);
-                }
+                video.joinRoom(room);
             });
         });
     </script>

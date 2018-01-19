@@ -9,6 +9,7 @@ class Video {
         this.checkConfig(config);
 
         this.baseUrl = 'http://localhost:9090';
+        // this.baseUrl = 'https://0ef65fde.ngrok.io';
 
         this.room = config.room;
         this.identity = config.identity;
@@ -17,6 +18,9 @@ class Video {
         this.presenterInitiation = config.presenterInitiation;
         this.presenterIdentity = config.presenterIdentity;
         this.presenterVideoContainer = config.presenterVideoContainer;
+        this.frameRate = config.frameRate;
+        this.width = config.width;
+        this.height = config.height;
         this.record = (config.record) ? 'true' : 'false'; // have to use the string version of the booleans as per the docs
     }
 
@@ -39,7 +43,16 @@ class Video {
     }
 
     connect() {
-        return TwilioVideo.createLocalTracks().then(localTracks => {
+        let video = {
+            width: this.width
+        }
+
+        if (this.height) video.height = this.height;
+        if (this.frameRate) video.frameRate = this.frameRate;
+
+        return TwilioVideo.createLocalTracks({
+            video: video
+        }).then(localTracks => {
             return TwilioVideo.connect(
                 this.data.jwt,
                 {
@@ -205,7 +218,8 @@ class Video {
         if (
             ! config.identity ||
             ! config.room ||
-            ! config.remoteVideoContainer
+            ! config.remoteVideoContainer ||
+            ! config.width
             )
         {
             alert('Config parameters are missing. Please refer to the documentation.');
