@@ -11,11 +11,13 @@ class Video {
         this.baseUrl = 'http://localhost:9090';
 
         this.room = config.room;
-        this.identity = config.identity,
-        this.remoteVideoContainer = config.remoteVideoContainer;
+        this.identity = config.identity;
         this.localVideoContainer = config.localVideoContainer;
+        this.remoteVideoContainer = config.remoteVideoContainer;
+        this.presenterInitiation = config.presenterInitiation;
         this.presenterIdentity = config.presenterIdentity;
         this.presenterVideoContainer = config.presenterVideoContainer;
+        this.record = (config.record) ? 'true' : 'false'; // have to use the string version of the booleans as per the docs
     }
 
     authenticate(token) {
@@ -27,10 +29,10 @@ class Video {
                 room: this.room
             },
             dataType: 'json',
-            error: (error) => {
+            error: error => {
                 alert('Error: Check your API key.');
             },
-            success: (data) => {
+            success: data => {
                 this.data = data;
             }
         });
@@ -41,8 +43,9 @@ class Video {
             return TwilioVideo.connect(
                 this.data.jwt,
                 {
-                    name: 'demo',
-                    tracks: localTracks
+                    name: this.room,
+                    tracks: localTracks,
+                    recordParticipantsOnConnect: this.record
                 }
             );
         });
@@ -51,17 +54,55 @@ class Video {
     joinRoom(room) {
         this.attachLocalVideo(room.localParticipant);
 
+        if (this.presenterInitiation && ! this.isPresenterConnected(room)) {
+            return {
+                status: false,
+                message: 'Waiting for presenter!'
+            }
+        }
+
         room.participants.forEach(participant => {
             this.attachRemoteVideo(participant);
         });
 
         room.once('participantConnected', participant => {
+            console.log('connected', participant);
             this.attachRemoteVideo(participant);
         });
 
         room.once('participantDisconnected', participant => {
+            console.log('disconnected', participant);
             this.detachRemoteVideo(participant);
         });
+
+        return {
+            status: true,
+            message: 'Room connected.'
+        }
+    }
+
+    isPresenterConnected(room) {
+        const localParticipant = room.localParticipant;
+
+        let presenterConnected = true;
+
+        if (this.identity != this.presenterIdentity) {
+            presenterConnected = false;
+
+            room.participants.forEach(participant => {
+                if (participant.identity == this.presenterIdentity) {
+                    presenterConnected = true;
+                }
+            });
+        }
+
+        if (! presenterConnected) {
+            room.disconnect();
+
+            return false;
+        }
+
+        return true;
     }
 
     attachRemoteVideo(participant, track) {
