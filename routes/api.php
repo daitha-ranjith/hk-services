@@ -17,3 +17,11 @@ Route::group(['prefix' => 'video', 'middleware' => 'cors'], function () {
     // Conference Disconnection API
     // Route::post('disconnect', 'ConferenceController@disconnect');
 });
+
+Route::group(['prefix' => 'sms', 'middleware' => 'cors'], function () {
+    Route::group(['middleware' => ['auth:token']], function () {
+        Route::post('send', 'SmsController@send');
+    });
+
+    Route::post('status/update', 'SmsController@statusUpdate');
+});

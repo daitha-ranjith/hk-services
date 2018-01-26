@@ -18,7 +18,7 @@
 
                         <div class="form-group{{ $errors->has('label') ? ' has-error' : '' }}">
                             <label for="name" class="col-sm-2 control-label">Account Name</label>
-                            <div class="col-sm-5">
+                            <div class="col-sm-6">
                                 <input type="text" class="form-control" id="label" placeholder="Label" name="label" value="" required>
                                 @if ($errors->has('label'))
                                     <span class="help-block">
@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-5">
+                            <div class="col-sm-offset-2 col-sm-6">
                                 <button type="submit" class="btn btn-success">Create</button>
                                 <a class="btn btn-default pull-right" href="{{ route('accounts.index') }}">Back</a>
                             </div>

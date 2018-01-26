@@ -78,8 +78,6 @@ class AccountController extends Controller
                     'active' => false
                 ];
             }
-
-            $account->config = $config;
         }
 
         if (request()->section == 'twilio-chat') {
@@ -103,8 +101,6 @@ class AccountController extends Controller
                     'active' => false
                 ];
             }
-
-            $account->config = $config;
         }
 
         if (request()->section == 'twilio-sms') {
@@ -126,9 +122,33 @@ class AccountController extends Controller
                     'active' => false
                 ];
             }
-
-            $account->config = $config;
         }
+
+        if (request()->section == 'email') {
+            if (request()->email) {
+                $validations = [
+                    'email_smtp_host'     => 'required',
+                    'email_smtp_port'     => 'required',
+                    'email_smtp_username' => 'required',
+                    'email_smtp_password' => 'required'
+                ];
+
+                $config['email'] = [
+                    'active' => true,
+                    'params' => [
+                        'email_smtp_host'     => request()->email_smtp_host,
+                        'email_smtp_port'     => request()->email_smtp_port,
+                        'email_smtp_username' => request()->email_smtp_username
+                    ]
+                ];
+            } else {
+                $config['email'] = [
+                    'active' => false
+                ];
+            }
+        }
+
+        $account->config = $config;
 
         request()->validate($validations);
 

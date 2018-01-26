@@ -249,6 +249,80 @@
                     </div>
                 </div>
 
+                <div class="panel-heading">E-mail</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <form id="form-email" class="form-horizontal" action="{{ route('accounts.update', $account->id) }}" method="POST">
+                            {{ csrf_field() }}
+
+                            {{ method_field('PUT') }}
+
+                            <input type="hidden" name="section" value="email">
+
+                            <div class="form-group">
+                                <label for="email" class="col-sm-2 control-label">Enabled</label>
+                                <div class="col-sm-6">
+                                    <input type="checkbox" id="email" name="email" value="true" {{ $email['active'] ? 'checked' : '' }}>
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('email_smtp_host') ? ' has-error' : '' }}">
+                                <label for="email-smtp-host" class="col-sm-2 control-label">SMTP Host</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="email-smtp-host" placeholder="Host" name="email_smtp_host" value="{{ $email['active'] ? $email['params']['email_smtp_host'] : '' }}" required autocomplete="off">
+                                    @if ($errors->has('email_smtp_host'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('email_smtp_host') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('email_smtp_port') ? ' has-error' : '' }}">
+                                <label for="email-smtp-port" class="col-sm-2 control-label">SMTP Port</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="email-smtp-port" placeholder="Port" name="email_smtp_port" value="{{ $email['active'] ? $email['params']['email_smtp_port'] : '' }}" required autocomplete="off">
+                                    @if ($errors->has('email_smtp_port'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('email_smtp_port') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('email_smtp_username') ? ' has-error' : '' }}">
+                                <label for="email-smtp-username" class="col-sm-2 control-label">SMTP Username</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="email-smtp-username" placeholder="Username" name="email_smtp_username" value="{{ $email['active'] ? $email['params']['email_smtp_username'] : '' }}" required autocomplete="off">
+                                    @if ($errors->has('email_smtp_username'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('email_smtp_username') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('email_smtp_password') ? ' has-error' : '' }}">
+                                <label for="email-smtp-password" class="col-sm-2 control-label">SMTP Password</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="email-smtp-password" placeholder="Password" name="email_smtp_password" value="{{ $email['active'] ? $email['params']['email_smtp_password'] : '' }}" required autocomplete="off">
+                                    @if ($errors->has('email_smtp_password'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('email_smtp_password') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-default">Update</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -262,6 +336,10 @@
         $("input[type=checkbox]").change(function () {
             var form = $(this).closest('form');
             var inputs = form.find('input[type=text]');
+
+            if (! $(this).is(':checked')) {
+                inputs.attr('disabled', true);
+            }
 
             if (this.checked) {
                 inputs.removeAttr('disabled');
