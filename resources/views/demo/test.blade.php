@@ -1,5 +1,5 @@
 @php
-    $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvYXBpL2F1dGhvcml6ZSIsImlhdCI6MTUxNjM5NzQzMSwiZXhwIjoxNTE2NDAxMDMxLCJuYmYiOjE1MTYzOTc0MzEsImp0aSI6InBONXZjdThwZ1RqNUFGNWMiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.PZ6mb9oTuZFqZyO_XNBvM7eD2RCWKzUaNHZqtCjdi4A';
+    $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvYXBpL2F1dGhvcml6ZSIsImlhdCI6MTUxNjk1OTYyMywiZXhwIjoxNTE2OTYzMjIzLCJuYmYiOjE1MTY5NTk2MjMsImp0aSI6Ilo0ZXhCd3BuVWFZTG1sUlUiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.d-zUAC73dms-QvsTcdShvQNgWMV1o2UIdKcsFIYgPGE';
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +27,7 @@
             presenterIdentity: 'santosh',
             presenterVideoContainer: '#presenter-video-container',
             width: 720,
-            frameRate: 2
+            frameRate: 100
         });
 
         video.authenticate('{{$token}}').then(function () {

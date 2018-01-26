@@ -29,6 +29,11 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
+    public function details()
+    {
+        return $this->hasOne(UserDetail::class);
+    }
+
     public function accounts()
     {
         return $this->hasMany(Token::class);
