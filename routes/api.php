@@ -12,8 +12,8 @@ Route::group(['prefix' => 'video', 'middleware' => 'cors'], function () {
     });
 
     // Conference Connection API
-    Route::post('connect', 'ConferenceController@connect');
+    // Route::post('connect', 'ConferenceController@connect');
 
     // Conference Disconnection API
-    Route::post('disconnect', 'ConferenceController@disconnect');
+    // Route::post('disconnect', 'ConferenceController@disconnect');
 });
