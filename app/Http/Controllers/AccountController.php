@@ -60,21 +60,69 @@ class AccountController extends Controller
         if (request()->section == 'twilio-video') {
             if (request()->twilio_video) {
                 $validations = [
-                    'twilio_account_sid' => 'required',
-                    'twilio_api_key'     => 'required',
-                    'twilio_api_secret'  => 'required'
+                    'twilio_video_account_sid' => 'required',
+                    'twilio_video_api_key'     => 'required',
+                    'twilio_video_api_secret'  => 'required'
                 ];
 
                 $config['video'] = [
                     'active' => true,
                     'params' => [
-                        'twilio_account_sid' => request()->twilio_account_sid,
-                        'twilio_api_key'     => request()->twilio_api_key,
-                        'twilio_api_secret'  => request()->twilio_api_secret
+                        'twilio_video_account_sid' => request()->twilio_video_account_sid,
+                        'twilio_video_api_key'     => request()->twilio_video_api_key,
+                        'twilio_video_api_secret'  => request()->twilio_video_api_secret
                     ]
                 ];
             } else {
                 $config['video'] = [
+                    'active' => false
+                ];
+            }
+
+            $account->config = $config;
+        }
+
+        if (request()->section == 'twilio-chat') {
+            if (request()->twilio_chat) {
+                $validations = [
+                    'twilio_chat_account_sid' => 'required',
+                    'twilio_chat_api_key'     => 'required',
+                    'twilio_chat_api_secret'  => 'required'
+                ];
+
+                $config['chat'] = [
+                    'active' => true,
+                    'params' => [
+                        'twilio_chat_account_sid' => request()->twilio_chat_account_sid,
+                        'twilio_chat_api_key'     => request()->twilio_chat_api_key,
+                        'twilio_chat_api_secret'  => request()->twilio_chat_api_secret
+                    ]
+                ];
+            } else {
+                $config['chat'] = [
+                    'active' => false
+                ];
+            }
+
+            $account->config = $config;
+        }
+
+        if (request()->section == 'twilio-sms') {
+            if (request()->twilio_sms) {
+                $validations = [
+                    'twilio_sms_account_sid' => 'required',
+                    'twilio_sms_auth_token'    => 'required'
+                ];
+
+                $config['sms'] = [
+                    'active' => true,
+                    'params' => [
+                        'twilio_sms_account_sid' => request()->twilio_sms_account_sid,
+                        'twilio_sms_auth_token'    => request()->twilio_sms_auth_token
+                    ]
+                ];
+            } else {
+                $config['sms'] = [
                     'active' => false
                 ];
             }

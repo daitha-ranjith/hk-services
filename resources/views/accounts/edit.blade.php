@@ -75,7 +75,7 @@
                     </div>
                 </div>
 
-                <div class="panel-heading">Twilio Video</div>
+                <div class="panel-heading">Video</div>
                 <div class="panel-body">
                     <div class="form-group">
                         <form id="form-twilio-video" class="form-horizontal" action="{{ route('accounts.update', $account->id) }}" method="POST">
@@ -85,50 +85,156 @@
 
                             <input type="hidden" name="section" value="twilio-video">
 
-                            <div class="form-group{{ $errors->has('twilio_video') ? ' has-error' : '' }}">
+                            <div class="form-group">
                                 <label for="twilio-video" class="col-sm-2 control-label">Enabled</label>
                                 <div class="col-sm-6">
-
                                     <input type="checkbox" id="twilio-video" name="twilio_video" value="true" {{ $video['active'] ? 'checked' : '' }}>
-                                    @if ($errors->has('twilio_video'))
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('twilio_video_account_sid') ? ' has-error' : '' }}">
+                                <label for="twilio-video-account-sid" class="col-sm-2 control-label">Account SID</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="twilio-video-account-sid" placeholder="Account SID" name="twilio_video_account_sid" value="{{ $video['active'] ? $video['params']['twilio_video_account_sid'] : '' }}" required autocomplete="off">
+                                    @if ($errors->has('twilio_video_account_sid'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('twilio_video') }}</strong>
+                                            <strong>{{ $errors->first('twilio_video_account_sid') }}</strong>
                                         </span>
                                     @endif
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('twilio_account_sid') ? ' has-error' : '' }}">
-                                <label for="twilio-account-sid" class="col-sm-2 control-label">Account SID</label>
+                            <div class="form-group{{ $errors->has('twilio_video_api_key') ? ' has-error' : '' }}">
+                                <label for="twilio-video-api-key" class="col-sm-2 control-label">API Key</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="twilio-account-sid" placeholder="Account SID" name="twilio_account_sid" value="{{ $video['active'] ? $video['params']['twilio_account_sid'] : '' }}" required autocomplete="off">
-                                    @if ($errors->has('twilio_account_sid'))
+                                    <input type="text" class="form-control" id="twilio-video-api-key" placeholder="API Key" name="twilio_video_api_key" value="{{ $video['active'] ? $video['params']['twilio_video_api_key'] : '' }}" required autocomplete="off">
+                                    @if ($errors->has('twilio_video_api_key'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('twilio_account_sid') }}</strong>
+                                            <strong>{{ $errors->first('twilio_video_api_key') }}</strong>
                                         </span>
                                     @endif
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('twilio_api_key') ? ' has-error' : '' }}">
-                                <label for="twilio-api-key" class="col-sm-2 control-label">API Key</label>
+                            <div class="form-group{{ $errors->has('twilio_video_api_secret') ? ' has-error' : '' }}">
+                                <label for="twilio-video-api-secret" class="col-sm-2 control-label">API secret</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="twilio-api-key" placeholder="API Key" name="twilio_api_key" value="{{ $video['active'] ? $video['params']['twilio_api_key'] : '' }}" required autocomplete="off">
-                                    @if ($errors->has('twilio_api_key'))
+                                    <input type="text" class="form-control" id="twilio-video-api-secret" placeholder="API Secret" name="twilio_video_api_secret" value="{{ $video['active'] ? $video['params']['twilio_video_api_secret'] : '' }}" required autocomplete="off">
+                                    @if ($errors->has('twilio_video_api_secret'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('twilio_api_key') }}</strong>
+                                            <strong>{{ $errors->first('twilio_video_api_secret') }}</strong>
                                         </span>
                                     @endif
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('twilio_api_secret') ? ' has-error' : '' }}">
-                                <label for="twilio-api-secret" class="col-sm-2 control-label">API secret</label>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-default">Update</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="panel-heading">Chat</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <form id="form-twilio-chat" class="form-horizontal" action="{{ route('accounts.update', $account->id) }}" method="POST">
+                            {{ csrf_field() }}
+
+                            {{ method_field('PUT') }}
+
+                            <input type="hidden" name="section" value="twilio-chat">
+
+                            <div class="form-group">
+                                <label for="twilio-chat" class="col-sm-2 control-label">Enabled</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="twilio-api-secret" placeholder="API Secret" name="twilio_api_secret" value="{{ $video['active'] ? $video['params']['twilio_api_secret'] : '' }}" required autocomplete="off">
-                                    @if ($errors->has('twilio_api_secret'))
+                                    <input type="checkbox" id="twilio-chat" name="twilio_chat" value="true" {{ $chat['active'] ? 'checked' : '' }}>
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('twilio_chat_account_sid') ? ' has-error' : '' }}">
+                                <label for="twilio-chat-account-sid" class="col-sm-2 control-label">Account SID</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="twilio-chat-account-sid" placeholder="Account SID" name="twilio_chat_account_sid" value="{{ $chat['active'] ? $chat['params']['twilio_chat_account_sid'] : '' }}" required autocomplete="off">
+                                    @if ($errors->has('twilio_chat_account_sid'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('twilio_api_secret') }}</strong>
+                                            <strong>{{ $errors->first('twilio_chat_account_sid') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('twilio_chat_api_key') ? ' has-error' : '' }}">
+                                <label for="twilio-chat-api-key" class="col-sm-2 control-label">API Key</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="twilio-chat-api-key" placeholder="API Key" name="twilio_chat_api_key" value="{{ $chat['active'] ? $chat['params']['twilio_chat_api_key'] : '' }}" required autocomplete="off">
+                                    @if ($errors->has('twilio_chat_api_key'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('twilio_chat_api_key') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('twilio_chat_api_secret') ? ' has-error' : '' }}">
+                                <label for="twilio-chat-api-secret" class="col-sm-2 control-label">API secret</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="twilio-chat-api-secret" placeholder="API Secret" name="twilio_chat_api_secret" value="{{ $chat['active'] ? $chat['params']['twilio_chat_api_secret'] : '' }}" required autocomplete="off">
+                                    @if ($errors->has('twilio_chat_api_secret'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('twilio_chat_api_secret') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-default">Update</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="panel-heading">SMS</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <form id="form-twilio-sms" class="form-horizontal" action="{{ route('accounts.update', $account->id) }}" method="POST">
+                            {{ csrf_field() }}
+
+                            {{ method_field('PUT') }}
+
+                            <input type="hidden" name="section" value="twilio-sms">
+
+                            <div class="form-group">
+                                <label for="twilio-sms" class="col-sm-2 control-label">Enabled</label>
+                                <div class="col-sm-6">
+                                    <input type="checkbox" id="twilio-sms" name="twilio_sms" value="true" {{ $sms['active'] ? 'checked' : '' }}>
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('twilio_sms_account_sid') ? ' has-error' : '' }}">
+                                <label for="twilio-sms-account-sid" class="col-sm-2 control-label">Account SID</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="twilio-sms-account-sid" placeholder="Account SID" name="twilio_sms_account_sid" value="{{ $sms['active'] ? $sms['params']['twilio_sms_account_sid'] : '' }}" required autocomplete="off">
+                                    @if ($errors->has('twilio_sms_account_sid'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('twilio_sms_account_sid') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('twilio_sms_auth_token') ? ' has-error' : '' }}">
+                                <label for="twilio-sms-auth-token" class="col-sm-2 control-label">Auth Token</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="twilio-sms-auth-token" placeholder="Token" name="twilio_sms_auth_token" value="{{ $sms['active'] ? $sms['params']['twilio_sms_auth_token'] : '' }}" required autocomplete="off">
+                                    @if ($errors->has('twilio_sms_auth_token'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('twilio_sms_auth_token') }}</strong>
                                         </span>
                                     @endif
                                 </div>
