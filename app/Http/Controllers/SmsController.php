@@ -11,6 +11,7 @@ class SmsController extends Controller
 {
     public function send()
     {
+        // validate the request
         if (! request()->has('phone') ||
             ! request()->has('from') ||
             ! request()->has('message')
@@ -46,10 +47,10 @@ class SmsController extends Controller
         dispatch(new SendSms($data));
 
         // return json
-        return [
+        return response()->json([
             'status' => 'queued',
             'message' => 'Request received.'
-        ];
+        ]);
     }
 
     public function statusUpdate()

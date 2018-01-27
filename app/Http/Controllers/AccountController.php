@@ -138,7 +138,8 @@ class AccountController extends Controller
                     'params' => [
                         'email_smtp_host'     => request()->email_smtp_host,
                         'email_smtp_port'     => request()->email_smtp_port,
-                        'email_smtp_username' => request()->email_smtp_username
+                        'email_smtp_username' => request()->email_smtp_username,
+                        'email_smtp_password' => request()->email_smtp_password
                     ]
                 ];
             } else {

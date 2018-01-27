@@ -35,9 +35,9 @@ class SendSms implements ShouldQueue
     public function handle()
     {
         $client = new Client(
-                        $this->data['sms']['params']['twilio_sms_account_sid'],
-                        $this->data['sms']['params']['twilio_sms_auth_token']
-                  );
+            $this->data['sms']['params']['twilio_sms_account_sid'],
+            $this->data['sms']['params']['twilio_sms_auth_token']
+        );
 
         $response = $client->messages->create(
             $this->data['phone'],

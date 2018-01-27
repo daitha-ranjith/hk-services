@@ -25,3 +25,9 @@ Route::group(['prefix' => 'sms', 'middleware' => 'cors'], function () {
 
     Route::post('status/update', 'SmsController@statusUpdate');
 });
+
+Route::group(['prefix' => 'email', 'middleware' => 'cors'], function () {
+    Route::group(['middleware' => ['auth:token']], function () {
+        Route::post('send', 'EmailController@send');
+    });
+});
