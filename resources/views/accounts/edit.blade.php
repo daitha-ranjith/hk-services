@@ -190,6 +190,18 @@
                                 </div>
                             </div>
 
+                            <div class="form-group{{ $errors->has('twilio_chat_service_sid') ? ' has-error' : '' }}">
+                                <label for="twilio-chat-service-sid" class="col-sm-2 control-label">Service SID</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="twilio-chat-service-sid" placeholder="Service SID" name="twilio_chat_service_sid" value="{{ $chat['active'] ? $chat['params']['twilio_chat_service_sid'] : '' }}" required autocomplete="off">
+                                    @if ($errors->has('twilio_chat_service_sid'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('twilio_chat_service_sid') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button type="submit" class="btn btn-default">Update</button>

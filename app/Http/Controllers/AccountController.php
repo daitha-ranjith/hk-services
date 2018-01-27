@@ -85,7 +85,8 @@ class AccountController extends Controller
                 $validations = [
                     'twilio_chat_account_sid' => 'required',
                     'twilio_chat_api_key'     => 'required',
-                    'twilio_chat_api_secret'  => 'required'
+                    'twilio_chat_api_secret'  => 'required',
+                    'twilio_chat_service_sid' => 'required'
                 ];
 
                 $config['chat'] = [
@@ -93,7 +94,8 @@ class AccountController extends Controller
                     'params' => [
                         'twilio_chat_account_sid' => request()->twilio_chat_account_sid,
                         'twilio_chat_api_key'     => request()->twilio_chat_api_key,
-                        'twilio_chat_api_secret'  => request()->twilio_chat_api_secret
+                        'twilio_chat_api_secret'  => request()->twilio_chat_api_secret,
+                        'twilio_chat_service_sid' => request()->twilio_chat_service_sid
                     ]
                 ];
             } else {

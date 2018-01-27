@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Twilio\Jwt\AccessToken;
+use Twilio\Jwt\Grants\ChatGrant;
 use Twilio\Jwt\Grants\VideoGrant;
 
 class Twilio
@@ -37,11 +38,19 @@ class Twilio
         $this->token = $token;
     }
 
-    public function getVideoToken()
+    public function getVideoToken($room)
     {
-        $configuration_sid = config('services.twilio.video.sid');
-
         $grant = new VideoGrant();
+        $grant->setRoom($room);
+        $token = $this->token->addGrant($grant);
+
+        return $token->toJWT();
+    }
+
+    public function getChatToken($service_sid)
+    {
+        $grant = new ChatGrant();
+        $grant->setServiceSid($service_sid);
         $token = $this->token->addGrant($grant);
 
         return $token->toJWT();
