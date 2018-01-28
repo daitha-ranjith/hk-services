@@ -61,7 +61,10 @@
 
 @section('content')
     @php
-        $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvYXBpL2F1dGhvcml6ZSIsImlhdCI6MTUxNzE3MjE0MywiZXhwIjoxNTE3MTc1NzQzLCJuYmYiOjE1MTcxNzIxNDMsImp0aSI6ImEzWW90WUthUTNxT0JhakciLCJzdWIiOjYsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.DG9k5QrZI04A5w6rT304T0yr74ZoJ5WqSEyRBXWBCik';
+        $access_token = 'NnDsGQVmVhU0kYN0MYKKzAxK8EnJx19Ot4CbxciAiWS2hkByj1JEDdJzK60g';
+        $url = "https://hk-services.herokuapp.com/api/authorize?access_token=" . $access_token;
+        $data = json_decode(file_get_contents($url));
+        $token = $data->token;
     @endphp
 
     <div class="container">

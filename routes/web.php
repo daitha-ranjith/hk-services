@@ -24,11 +24,3 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 });
 
 Route::view('demo', 'demo.conference')->name('demo');
-
-// Route::get('demo', function () {
-//     $token = '1vLfhTU5MhVLfEou5pK0F3Ra5AFTJnvpA4qcsUmHR7LXVV9LRx9wf4GKbvTt';
-//     $url = "https://healthkon-video-api.herokuapp.com/api/authorize?api_token=" . $token;
-//     $data = json_decode(file_get_contents($url));
-
-//     return view('demo.conference')->withToken($data->token);
-// });
