@@ -43,9 +43,7 @@ class Video {
     }
 
     connect() {
-        let video = {
-            width: this.width
-        }
+        let video = {}
 
         if (this.height) video.height = this.height;
         if (this.frameRate) video.frameRate = this.frameRate;
