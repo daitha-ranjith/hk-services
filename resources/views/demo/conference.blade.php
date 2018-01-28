@@ -61,7 +61,7 @@
 
 @section('content')
     @php
-        $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvYXBpL2F1dGhvcml6ZSIsImlhdCI6MTUxNzE2NDA3NSwiZXhwIjoxNTE3MTY3Njc1LCJuYmYiOjE1MTcxNjQwNzUsImp0aSI6ImpOTHp1bE1nRmZESXI3UlkiLCJzdWIiOjYsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.jZVUI8CT1lnekyfONU9YjZTp0jaRoSNutNl5XDn5Slg';
+        $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvYXBpL2F1dGhvcml6ZSIsImlhdCI6MTUxNzE3MjE0MywiZXhwIjoxNTE3MTc1NzQzLCJuYmYiOjE1MTcxNzIxNDMsImp0aSI6ImEzWW90WUthUTNxT0JhakciLCJzdWIiOjYsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.DG9k5QrZI04A5w6rT304T0yr74ZoJ5WqSEyRBXWBCik';
     @endphp
 
     <div class="container">
@@ -90,6 +90,18 @@
                             <div id="remote-video-container"></div>
                             <div id="local-video-container"></div>
                         </div>
+
+                        {{-- <h4>Bitrate Adjustment</h4>
+                        <hr>
+                        <div>
+                            <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                                <button type="button" class="btn btn-default bitrate-button">HD Audio (40kbps)</button>
+                                <button type="button" class="btn btn-default bitrate-button">Low Video + HD Audio (200kbps)</button>
+                                <button type="button" class="btn btn-default bitrate-button">SD Video + HD Audio (540kbps)</button>
+                                <button type="button" class="btn btn-default bitrate-button">HD Video + HD Audio (1.5Mbps)</button>
+                                <button type="button" class="btn btn-danger bitrate-button">Auto</button>
+                            </div>
+                        </div> --}}
 
                         <!-- Chat container -->
                         <div class="col-md-4" id="chat-container">
@@ -136,22 +148,22 @@
                 $('button#connect-button').attr('disabled', 'disabled');
                 $('a#disconnect-button').removeClass('disabled');
 
-                // var video = new Video({
-                //     room: room,
-                //     identity: identity,
-                //     localVideoContainer: '#local-video-container',
-                //     remoteVideoContainer: '#remote-video-container',
-                //     presenterInitiation: '{{ request('presenter') ?: false }}',
-                //     presenterIdentity: '{{ request('presenter') }}',
-                //     presenterVideoContainer: '#presenter-video-container',
-                //     frameRate: 10000,
-                //     width: 720
-                // });
-                // video.authenticate('{{$token}}').then(function () {
-                //     video.connect().then(function (room) {
-                //         video.joinRoom(room);
-                //     });
-                // });
+                var video = new Video({
+                    room: room,
+                    identity: identity,
+                    localVideoContainer: '#local-video-container',
+                    remoteVideoContainer: '#remote-video-container',
+                    presenterInitiation: '{{ request('presenter') ?: false }}',
+                    presenterIdentity: '{{ request('presenter') }}',
+                    presenterVideoContainer: '#presenter-video-container',
+                    frameRate: 10,
+                    width: 144
+                });
+                video.authenticate('{{$token}}').then(function () {
+                    video.connect().then(function (room) {
+                        video.joinRoom(room);
+                    });
+                });
 
                 var chat = new Chat({
                     channel: room,
