@@ -6,7 +6,7 @@ class Chat {
     constructor(config) {
         this.baseUrl = 'http://localhost:9090';
 
-        this.room = config.room;
+        this.channel = config.channel;
         this.identity = config.identity;
         this.messagesContainer = config.messagesContainer;
         this.messageInput = config.messageInput;
@@ -18,7 +18,7 @@ class Chat {
             url: this.baseUrl + '/api/chat/authenticate?token=' + token,
             data: {
                 identity: this.identity,
-                room: this.room
+                channel: this.channel
             },
             dataType: 'json',
             error: error => {
@@ -37,7 +37,7 @@ class Chat {
     }
 
     chatInitiated() {
-        const channelFound = this.clientI.getChannelByUniqueName(this.room);
+        const channelFound = this.clientI.getChannelByUniqueName(this.channel);
 
         this.pushChatInfo('Connecting..');
 
@@ -47,7 +47,7 @@ class Chat {
         }, error => {
             if (error.status == 404) {
                 this.clientI.createChannel({
-                    uniqueName: this.room,
+                    uniqueName: this.channel,
                     friendlyName: 'General Channel'
                 }).then(channel => {
                     this.chatChannel = channel;

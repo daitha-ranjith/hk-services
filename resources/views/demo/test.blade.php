@@ -23,7 +23,7 @@
     <script src="/public/sdk/chat.1.0.min.js"></script>
     <script>
         var chat = new Chat({
-            room: 'some room',
+            channel: 'demo',
             identity: '{{ request()->name }}',
             messagesContainer: '#messages-div',
             messageInput: '#chat-input'
