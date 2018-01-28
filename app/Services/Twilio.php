@@ -49,11 +49,12 @@ class Twilio
 
     public function getChatToken($service_sid)
     {
-        $endpoint = 'hktest' . ":" . $this->identity . ":" . 'web';
+        $endpoint = 'hktest:' . 'santosh' . ':web';
 
         $grant = new ChatGrant();
         $grant->setServiceSid($service_sid);
         $grant->setEndpointId($endpoint);
+
         $token = $this->token->addGrant($grant);
 
         return $token->toJWT();
