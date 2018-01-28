@@ -36,7 +36,7 @@ class Chat {
         return client.initialize();
     }
 
-    chatInitiated() {
+    join() {
         const channelFound = this.clientI.getChannelByUniqueName(this.channel);
 
         this.pushChatInfo('Connecting..');
@@ -91,8 +91,8 @@ class Chat {
 
         if (isTyping) {
             const block = `<div class="chat-message-typing-block" id="${member.state.userInfo}-typing">
-                    <div class="chat-message-typing-user"> ${member.state.identity}: </div>
-                    <div class="chat-message-typing-indicator"> typing.. </div>
+                    <div class="chat-message-typing-user"> ${member.state.identity} </div>
+                    <div class="chat-message-typing-indicator"> is typing.. </div>
             </div>`;
 
             el.append(block);
