@@ -54,15 +54,21 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="{{ route('dashboard') }}">Dashboard</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('accounts.index') }}">Accounts</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Settings</a>
-                                    </li>
+                                    @if (isAdmin())
+                                        <li>
+                                            <a href="{{ route('admin.dashboard') }}">Services</a>
+                                        </li>
+                                    @else
+                                        <li>
+                                            <a href="{{ route('dashboard') }}">Dashboard</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('accounts.index') }}">Accounts</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Settings</a>
+                                        </li>
+                                    @endif
                                     <li>
                                         <a href="{{ route('logout') }}"
                                            onclick="event.preventDefault();

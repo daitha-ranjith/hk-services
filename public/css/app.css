@@ -1,3 +1,15 @@
+.services-operational {
+  font-weight: bold;
+  background-color:#3ACB6A;
+  color:#fff;
+}
+
+.services-interrupted {
+  font-weight: bold;
+  background-color:#a94442;
+  color:#fff;
+}
+
 /* HideShowPassword */
 ::-ms-reveal,
 ::-ms-clear {
