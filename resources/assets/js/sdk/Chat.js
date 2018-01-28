@@ -32,11 +32,12 @@ class Chat {
 
     connect() {
         let client = new TwilioChat.Client(this.data.jwt);
+        this.clientI = client;
         return client.initialize();
     }
 
     chatInitiated() {
-        const channelFound = this.initializedClient.getChannelByUniqueName(this.room);
+        const channelFound = this.clientI.getChannelByUniqueName(this.room);
 
         this.pushChatInfo('Connecting..');
 
@@ -45,7 +46,7 @@ class Chat {
             this.setupChatConversation(channel);
         }, error => {
             if (error.status == 404) {
-                this.client.createChannel({
+                this.clientI.createChannel({
                     uniqueName: this.room,
                     friendlyName: 'General Channel'
                 }).then(channel => {
@@ -66,7 +67,7 @@ class Chat {
             this.pushChatMessage(message.author, message.body);
         });
 
-        const input = $(this.chatConfig.messageInput);
+        const input = $(this.messageInput);
         input.on('keydown', function(e) {
             if (e.keyCode == 13 && input.val() != '') {
                 channel.sendMessage(input.val());
@@ -76,7 +77,7 @@ class Chat {
     }
 
     pushChatMessage(member, message) {
-        const el = $(this.chatConfig.messagesContainer);
+        const el = $(this.messagesContainer);
 
         const block = `<div class="video-chat-message-block">
                 <div class="video-chat-user"> ${member}: </div>
@@ -87,7 +88,7 @@ class Chat {
     }
 
     pushChatInfo(message) {
-        const el = $(this.chatConfig.messagesContainer);
+        const el = $(this.messagesContainer);
 
         const info = '<div class="video-chat-message-info">' + message + '</div>';
 

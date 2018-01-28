@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Services\Twilio;
-use Illuminate\Http\Request;
+use Twilio\Jwt\AccessToken;
+use Twilio\Jwt\Grants\ChatGrant;
 
 class ChatController extends Controller
 {

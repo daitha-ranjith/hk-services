@@ -1,6 +1,7 @@
 @php
-    $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvYXBpL2F1dGhvcml6ZSIsImlhdCI6MTUxNzA5MDk2MSwiZXhwIjoxNTE3MDk0NTYxLCJuYmYiOjE1MTcwOTA5NjEsImp0aSI6ImVOYkM0SGZJUTcyNnZxT28iLCJzdWIiOjYsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.EyjSVS8ZS5R6ENtkHKzc4_Cw6h0-Ih3BQZXfcAAcUFw';
+    $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvYXBpL2F1dGhvcml6ZSIsImlhdCI6MTUxNzE0NDExNCwiZXhwIjoxNTE3MTQ3NzE0LCJuYmYiOjE1MTcxNDQxMTQsImp0aSI6IjlWeTZldUJFTWtBR0MxMWkiLCJzdWIiOjYsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.E3fP8XmLxm9691bnLVIprug5ebLygsRMXf_rzbG2X8k';
 @endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,12 +25,14 @@
         var chat = new Chat({
             room: 'some room',
             identity: '{{ request()->name }}',
-            messagesContainer: 'messages-div',
-            messageInput: 'chat-input'
+            messagesContainer: '#messages-div',
+            messageInput: '#chat-input'
         });
 
         chat.authenticate('{{$token}}').then(function () {
-            chat.connect();
+            chat.connect().then(function () {
+                chat.chatInitiated();
+            });
         });
 
         // var video = new Video({
