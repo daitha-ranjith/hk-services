@@ -9,7 +9,7 @@ class ChatController extends Controller
 {
     public function authenticate()
     {
-        $identity = request()->has('identity') ? request()->identity : str_random(5);
+        $identity = request()->has('identity') ? request('identity') : str_random(5);
 
         $twilio = $this->setTwilio();
         $twilio->setIdentity($identity);

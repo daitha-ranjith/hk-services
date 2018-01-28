@@ -1,7 +1,3 @@
 {
-    "/public/sdk/video.1.0.min.js": "/public/sdk/video.1.0.min.js",
-    "/js/app.js": "/js/app.js",
-    "/css/bootstrap.css": "/css/bootstrap.css",
-    "/public/video.css": "/public/video.css",
-    "/css/app.css": "/css/app.css"
+    "/public/sdk/chat.1.0.min.js": "/public/sdk/chat.1.0.min.js"
 }
