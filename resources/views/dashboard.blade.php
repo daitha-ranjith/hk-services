@@ -19,9 +19,8 @@
                         </div>
                     @endif
 
-                    {{-- Click here to get into the <a href="/demo">demo</a>. --}}
+                    <a href="{{ route('demo', ['email' => auth()->user()->email, 'room' => 'demo']) }}">Click here</a> to get into the demo.
 
-                    You are logged in!
                 </div>
             </div>
         </div>
