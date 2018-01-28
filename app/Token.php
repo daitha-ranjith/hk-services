@@ -15,6 +15,11 @@ class Token extends Model
         'config' => 'array'
     ];
 
+    public static function getByToken($token)
+    {
+        return static::where('access_token', $token)->first();
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

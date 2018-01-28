@@ -21,3 +21,5 @@ Route::group(['middleware' => 'auth'], function () {
         return view('demo.conference')->withToken($data->token);
     });
 });
+
+Route::view('test', 'demo.test');

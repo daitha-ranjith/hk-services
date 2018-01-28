@@ -39,6 +39,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('mobile_no') ? ' has-error' : '' }}">
+                            <label for="mobile_no" class="col-md-4 control-label">Mobile No</label>
+
+                            <div class="col-md-6">
+                                <input id="mobile_no" type="tel" class="form-control" name="mobile_no" value="{{ old('mobile_no') }}" required autofocus>
+
+                                @if ($errors->has('mobile_no'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('mobile_no') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
 
@@ -58,6 +72,20 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+                            <label for="address" class="col-md-4 control-label">Address</label>
+
+                            <div class="col-md-6">
+                                <textarea id="address" class="form-control" name="address" value="{{ old('address') }}" rows="5" required></textarea>
+
+                                @if ($errors->has('address'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('address') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 
