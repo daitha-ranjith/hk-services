@@ -25,4 +25,4 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::post('service-status', 'ServiceController@statusUpdate')->name('status.update');
 });
 
-Route::view('test', 'demo.test');
+Route::view('demo', 'demo.conference');
