@@ -4,7 +4,8 @@ const TwilioChat = require('twilio-chat'),
 
 class Chat {
     constructor(config) {
-        this.baseUrl = 'http://localhost:9090';
+        this.baseUrl = 'https://hk-services.herokuapp.com';
+        // this.baseUrl = 'http://localhost:9090';
 
         this.channel = config.channel;
         this.identity = config.identity;

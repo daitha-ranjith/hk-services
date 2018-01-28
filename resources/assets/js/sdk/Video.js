@@ -8,8 +8,8 @@ class Video {
         this.checkBrowserSupport();
         this.checkConfig(config);
 
-        this.baseUrl = 'http://localhost:9090';
-        // this.baseUrl = 'https://0ef65fde.ngrok.io';
+        this.baseUrl = 'https://hk-services.herokuapp.com';
+        // this.baseUrl = 'http://localhost:9090';
 
         this.room = config.room;
         this.identity = config.identity;
