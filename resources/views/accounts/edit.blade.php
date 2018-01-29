@@ -3,10 +3,10 @@
 @section('content')
 
 @php
-    $video = $account['config']['video'];
-    $chat  = $account['config']['chat'];
-    $sms   = $account['config']['sms'];
-    $email = $account['config']['email'];
+    $video = $subAccount['config']['video'];
+    $chat  = $subAccount['config']['chat'];
+    $sms   = $subAccount['config']['sms'];
+    $email = $subAccount['config']['email'];
 @endphp
 
 <div class="container">
@@ -30,10 +30,10 @@
 
                             <label for="token" class="col-sm-2 control-label">Access Token</label>
                             <div class="col-sm-6">
-                                <input type="password" class="form-control hideShowPassword-field secret-password" id="token" name="token" value="{{ $account->access_token }}" autocomplete="off">
+                                <input type="password" class="form-control hideShowPassword-field secret-password" id="token" name="token" value="{{ $subAccount->access_token }}" autocomplete="off">
                             </div>
 
-                            <input type="hidden" name="id" value="{{$account->id}}">
+                            <input type="hidden" name="id" value="{{$subAccount->id}}">
 
                             <div class="col-xs-2">
                                 <button type="submit" class="btn btn-warning btn-sm regenerate-token" title="Refresh">
@@ -44,10 +44,10 @@
                     </div>
                 </div>
 
-                <div class="panel-heading">Details</div>
+                <div class="panel-heading">Name</div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <form id="form-name" class="form-horizontal" action="{{ route('accounts.update', $account->id) }}" method="POST">
+                        <form id="form-name" class="form-horizontal" action="{{ route('sub-accounts.update', [$accountId, $subAccount->id]) }}" method="POST">
                             {{ csrf_field() }}
 
                             {{ method_field('PUT') }}
@@ -57,7 +57,7 @@
                             <div class="form-group{{ $errors->has('label') ? ' has-error' : '' }}">
                                 <label for="label" class="col-sm-2 control-label">Account Name</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="label" placeholder="Name" name="label" value="{{ $account->label }}" required autocomplete="off">
+                                    <input type="text" class="form-control" id="label" placeholder="Name" name="label" value="{{ $subAccount->label }}" required autocomplete="off">
                                     @if ($errors->has('label'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('label') }}</strong>
@@ -78,7 +78,7 @@
                 <div class="panel-heading">Video</div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <form id="form-twilio-video" class="form-horizontal" action="{{ route('accounts.update', $account->id) }}" method="POST">
+                        <form id="form-twilio-video" class="form-horizontal" action="{{ route('sub-accounts.update', [$accountId, $subAccount->id]) }}" method="POST">
                             {{ csrf_field() }}
 
                             {{ method_field('PUT') }}
@@ -140,7 +140,7 @@
                 <div class="panel-heading">Chat</div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <form id="form-twilio-chat" class="form-horizontal" action="{{ route('accounts.update', $account->id) }}" method="POST">
+                        <form id="form-twilio-chat" class="form-horizontal" action="{{ route('sub-accounts.update', [$accountId, $subAccount->id]) }}" method="POST">
                             {{ csrf_field() }}
 
                             {{ method_field('PUT') }}
@@ -214,7 +214,7 @@
                 <div class="panel-heading">SMS</div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <form id="form-twilio-sms" class="form-horizontal" action="{{ route('accounts.update', $account->id) }}" method="POST">
+                        <form id="form-twilio-sms" class="form-horizontal" action="{{ route('sub-accounts.update', [$accountId, $subAccount->id]) }}" method="POST">
                             {{ csrf_field() }}
 
                             {{ method_field('PUT') }}
@@ -264,7 +264,7 @@
                 <div class="panel-heading">E-mail</div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <form id="form-email" class="form-horizontal" action="{{ route('accounts.update', $account->id) }}" method="POST">
+                        <form id="form-email" class="form-horizontal" action="{{ route('sub-accounts.update', [$accountId, $subAccount->id]) }}" method="POST">
                             {{ csrf_field() }}
 
                             {{ method_field('PUT') }}

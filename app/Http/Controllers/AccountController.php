@@ -2,48 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Token;
+use App\UserDetail;
 
 class AccountController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     public function index()
     {
-        $accounts = auth()->user()->accounts()->paginate(10);
+        $accounts = User::paginate(10);
 
-        return view('accounts.index')->withAccounts($accounts);
+        return view('users.index')->withAccounts($accounts);
     }
 
     public function create()
     {
-        return view('accounts.create');
+        return view('auth.register');
     }
 
-    public function store(Token $token)
+    public function createSubAccount($accountId)
     {
-        $token->user_id = auth()->id();
-        $token->access_token = str_random(60);
-        $token->label = request()->label;
-        $token->config = [
-            'video' => ['active' => false],
-            'chat'  => ['active' => false],
-            'sms'   => ['active' => false],
-            'email' => ['active' => false]
-        ];
-        $token->save();
-
-        return redirect()->back()->withStatus('Account created and fresh access token has been generated automatically.');
+        return view('accounts.create')->with(compact('accountId'));
     }
 
-    public function edit($id)
+    public function editSubAccount($accountId, $subAccountId)
     {
-        $account = Token::findOrFail($id);
+        $subAccount = Token::findOrFail($subAccountId);
 
-        return view('accounts.edit')->withAccount($account);
+        return view('accounts.edit')->with(compact('accountId', 'subAccount'));
     }
 
-    public function update($id)
+    public function updateSubAccount($accountId, $subAccountId)
     {
-        $account = Token::findOrFail($id);
+        $account = Token::findOrFail($subAccountId);
 
         $config = $account->config;
 
@@ -156,6 +152,58 @@ class AccountController extends Controller
         request()->validate($validations);
 
         $account->save();
+
+        return redirect()->back()->withStatus('Account details have been changed.');
+    }
+
+    public function storeSubAccount($accountId)
+    {
+        $token = new Token;
+        $token->user_id = $accountId;
+        $token->access_token = str_random(60);
+        $token->label = request()->label;
+        $token->config = [
+            'video' => ['active' => false],
+            'chat'  => ['active' => false],
+            'sms'   => ['active' => false],
+            'email' => ['active' => false]
+        ];
+        $token->save();
+
+        return redirect()->back()->withStatus('Account created and fresh access token has been generated automatically.');
+    }
+
+    public function edit($id)
+    {
+        $account = User::findOrFail($id);
+
+        $subAccounts = Token::where('user_id', $account->id)->paginate(5);
+
+        return view('users.edit')->with(compact('account', 'subAccounts'));
+    }
+
+    public function update($id)
+    {
+        $validations = [];
+
+        if (request('name')) $validations['name'] = 'string|max:255';
+        if (request('email')) $validations['email'] = 'string|email|max:255|unique:users,email,'.$id;
+        if (request('mobile_no')) $validations['mobile_no'] = 'digits_between:9,11';
+        if (request('password')) $validations['password'] = 'string|min:6|confirmed';
+        if (request('address')) $validations['address'] = 'string';
+
+        request()->validate($validations);
+
+        $account = User::findOrFail($id);
+        if (request('name')) $account->name = request('name');
+        if (request('email')) $account->email = request('email');
+        if (request('password')) $account->password = bcrypt('password');
+        $account->save();
+
+        $details = UserDetail::findOrFail($account->id);
+        if (request('mobile_no')) $details->mobile_no = request('mobile_no');
+        if (request('address')) $details->address = request('address');
+        $details->save();
 
         return redirect()->back()->withStatus('Account details have been changed.');
     }

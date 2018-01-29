@@ -14,7 +14,7 @@
                 <div class="panel-heading">
                     Accounts
                     <a href="{{ route('accounts.create') }}" class="btn btn-xs btn-primary pull-right">
-                        + Create
+                        Create New
                     </a>
                 </div>
 
@@ -24,21 +24,15 @@
                             <thead>
                                 <tr>
                                     <th>Account</th>
-                                    <th>Services Active</th>
+                                    <th>Email</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($accounts as $account)
                                     <tr>
-                                        <td>{{ $account->label }}</td>
-                                        <td>
-                                            @foreach ($account->config as $index => $config)
-                                                @if ($config['active'])
-                                                    {{ ucfirst($index) }}
-                                                @endif
-                                            @endforeach
-                                        </td>
+                                        <td>{{ $account->name }}</td>
+                                        <td>{{ $account->email }}</td>
                                         <td>
                                             <a href="{{ route('accounts.edit', $account->id) }}">Edit</a>
                                         </td>

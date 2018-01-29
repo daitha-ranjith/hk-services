@@ -13,14 +13,23 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::resource('accounts', 'AccountController');
     Route::resource('tokens', 'TokenController');
     Route::put('reset-api-token', 'TokenController@resetApiToken')->name('reset-api-token');
+    Route::resource('accounts', 'AccountController');
+    Route::group(['prefix' => 'accounts/{accountId}'], function () {
+        Route::get('sub-accounts/create', 'AccountController@createSubAccount')->name('sub-accounts.create');
+        Route::post('sub-accounts', 'AccountController@storeSubAccount')->name('sub-accounts.store');
+        Route::get('sub-accounts/{subAccountId}/edit', 'AccountController@editSubAccount')->name('sub-accounts.edit');
+        Route::put('sub-accounts/{subAccountId}', 'AccountController@updateSubAccount')->name('sub-accounts.update');
+    });
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
     Route::post('service-status', 'ServiceController@statusUpdate')->name('status.update');
+
+    Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+    Route::post('register', 'Auth\RegisterController@register');
 });
 
 Route::view('demo', 'demo.conference')->name('demo');

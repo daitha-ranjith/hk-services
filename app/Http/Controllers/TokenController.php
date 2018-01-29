@@ -6,15 +6,6 @@ use App\Token;
 
 class TokenController extends Controller
 {
-    public function update($id)
-    {
-        $token = Token::findOrFail($id);
-
-        // if ()
-
-        return redirect()->back()->withStatus('Changes successfully saved');
-    }
-
     public function resetApiToken()
     {
         $token = Token::findOrFail(request()->id);

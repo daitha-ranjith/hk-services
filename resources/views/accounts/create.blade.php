@@ -13,7 +13,7 @@
 
                 <div class="panel-heading">Create Account</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" action="{{ route('accounts.store') }}" method="POST">
+                    <form class="form-horizontal" action="{{ route('sub-accounts.store', $accountId) }}" method="POST">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('label') ? ' has-error' : '' }}">
@@ -31,7 +31,7 @@
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-6">
                                 <button type="submit" class="btn btn-success">Create</button>
-                                <a class="btn btn-default pull-right" href="{{ route('accounts.index') }}">Back</a>
+                                <a class="btn btn-default pull-right" href="{{ route('accounts.edit', $accountId) }}">Back</a>
                             </div>
                         </div>
                     </form>

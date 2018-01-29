@@ -57,14 +57,14 @@
                                 <ul class="dropdown-menu">
                                     @if (isAdmin())
                                         <li>
+                                            <a href="{{ route('accounts.index') }}">Accounts</a>
+                                        </li>
+                                        <li>
                                             <a href="{{ route('admin.dashboard') }}">Services</a>
                                         </li>
                                     @else
                                         <li>
                                             <a href="{{ route('dashboard') }}">Dashboard</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('accounts.index') }}">Accounts</a>
                                         </li>
                                         <li>
                                             <a href="#">Settings</a>
