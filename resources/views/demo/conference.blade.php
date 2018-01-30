@@ -61,7 +61,7 @@
 
 @section('content')
     @php
-        $access_token = 'NnDsGQVmVhU0kYN0MYKKzAxK8EnJx19Ot4CbxciAiWS2hkByj1JEDdJzK60g';
+        $access_token = 'uy0boiRWoZjMB1emLj9IOPyRyrMmUJEZE3zJYbWiAWksLSLKDirBadCG25df';
         $url = "https://hk-services.herokuapp.com/api/authorize?access_token=" . $access_token;
         $data = json_decode(file_get_contents($url));
         $token = $data->token;
@@ -159,7 +159,7 @@
                     presenterInitiation: '{{ request('presenter') ?: false }}',
                     presenterIdentity: '{{ request('presenter') }}',
                     presenterVideoContainer: '#presenter-video-container',
-                    frameRate: 10,
+                    frameRate: {{ request('bitrate') ?: 5  }},
                     width: 144
                 });
                 video.authenticate('{{$token}}').then(function () {
