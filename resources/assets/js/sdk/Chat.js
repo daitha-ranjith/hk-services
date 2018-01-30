@@ -23,7 +23,7 @@ class Chat {
             },
             dataType: 'json',
             error: error => {
-                alert('Error: Check your API key.');
+                alert('Error: ' . error.message);
             },
             success: data => {
                 this.data = data;
