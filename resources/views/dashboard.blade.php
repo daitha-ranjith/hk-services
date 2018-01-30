@@ -19,7 +19,7 @@
                         </div>
                     @endif
 
-                    <a href="{{ route('demo', ['email' => auth()->user()->email, 'room' => 'demo']) }}">Click here</a> to get into the demo.
+                    <a href="{{ route('demo', ['email' => auth()->user()->email, 'room' => 'demo', 'bitrate' => 1]) }}">Click here</a> to get into the demo.
 
                 </div>
             </div>
