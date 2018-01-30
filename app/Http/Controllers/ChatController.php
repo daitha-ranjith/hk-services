@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Service;
 use App\Services\Twilio;
 use Twilio\Jwt\AccessToken;
 use Twilio\Jwt\Grants\ChatGrant;
@@ -10,6 +11,13 @@ class ChatController extends Controller
 {
     public function authenticate()
     {
+        if (! Service::chat()->active) {
+            return response()->json([
+                'status' => false,
+                'message' => 'The service has temporarily stopped.'
+            ], 503);
+        }
+
         $identity = request()->has('identity') ? request('identity') : str_random(5);
 
         $twilio = $this->setTwilio();

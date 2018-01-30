@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Token;
+use App\Service;
 use App\Jobs\SendEmail;
 use Illuminate\Http\Request;
 
@@ -10,6 +11,13 @@ class EmailController extends Controller
 {
     public function send()
     {
+        if (! Service::email()->active) {
+            return response()->json([
+                'status' => false,
+                'message' => 'The service has temporarily stopped.'
+            ], 503);
+        }
+
         // validate the request
         if (! request()->has('sender_email') ||
             ! request()->has('sender_name') ||

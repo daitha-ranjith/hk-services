@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Token;
 use App\SmsLog;
+use App\Service;
 use Carbon\Carbon;
 use App\Jobs\SendSms;
 
@@ -11,6 +12,13 @@ class SmsController extends Controller
 {
     public function send()
     {
+        if (! Service::sms()->active) {
+            return response()->json([
+                'status' => false,
+                'message' => 'The service has temporarily stopped.'
+            ], 503);
+        }
+
         // validate the request
         if (! request()->has('phone') ||
             ! request()->has('from') ||

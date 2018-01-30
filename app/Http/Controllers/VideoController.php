@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Service;
 use App\Services\Twilio;
 
 class VideoController extends Controller
 {
     public function authenticate()
     {
+        if (! Service::video()->active) {
+            return response()->json([
+                'status' => false,
+                'message' => 'The service has temporarily stopped.'
+            ], 503);
+        }
+
         $identity = request()->has('identity') ? request('identity') : str_random(5);
         $room = request('room');
 
