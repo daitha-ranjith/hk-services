@@ -23,7 +23,7 @@ class Chat {
             },
             dataType: 'json',
             error: error => {
-                alert('Error: ' . error.message);
+                alert('Error: ' . error.responseText);
             },
             success: data => {
                 this.data = data;

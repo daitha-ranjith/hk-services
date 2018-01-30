@@ -12,10 +12,7 @@ class EmailController extends Controller
     public function send()
     {
         if (! Service::email()->active) {
-            return response()->json([
-                'status' => false,
-                'message' => 'The service has temporarily stopped.'
-            ], 503);
+            return response('The service has temporarily been stopped.', 503);
         }
 
         // validate the request

@@ -12,10 +12,7 @@ class ChatController extends Controller
     public function authenticate()
     {
         if (! Service::chat()->active) {
-            return response()->json([
-                'status' => false,
-                'message' => 'The service has temporarily stopped.'
-            ], 503);
+            return response('The service has temporarily been stopped.', 503);
         }
 
         $identity = request()->has('identity') ? request('identity') : str_random(5);
