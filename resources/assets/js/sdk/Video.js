@@ -34,7 +34,7 @@ class Video {
             },
             dataType: 'json',
             error: error => {
-                alert('Error: ' . error.responseText);
+                alert('Error: ' + error.responseText);
             },
             success: data => {
                 this.data = data;

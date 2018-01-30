@@ -168,17 +168,17 @@
                     });
                 });
 
-                // var chat = new Chat({
-                //     channel: room,
-                //     identity: identity,
-                //     messagesContainer: '#messages-container',
-                //     messageInput: '#chat-input'
-                // });
-                // chat.authenticate('{{$token}}').then(function () {
-                //     chat.connect().then(function () {
-                //         chat.join();
-                //     });
-                // });
+                var chat = new Chat({
+                    channel: room,
+                    identity: identity,
+                    messagesContainer: '#messages-container',
+                    messageInput: '#chat-input'
+                });
+                chat.authenticate('{{$token}}').then(function () {
+                    chat.connect().then(function () {
+                        chat.join();
+                    });
+                });
 
             }
         });
