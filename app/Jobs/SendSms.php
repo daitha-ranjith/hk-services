@@ -44,7 +44,7 @@ class SendSms implements ShouldQueue
             [
                 'from' => $this->data['from'],
                 'body' => $this->data['message'],
-                'statusCallback' => 'https://2844229e.ngrok.io/api/sms/status/update'
+                'statusCallback' => 'https://hk-services.herokuapp.com/api/sms/status/update'
             ]
         );
 
