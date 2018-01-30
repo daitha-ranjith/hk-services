@@ -198,11 +198,12 @@ class AccountController extends Controller
         if (request('name')) $account->name = request('name');
         if (request('email')) $account->email = request('email');
         if (request('password')) $account->password = bcrypt('password');
-        $account->save();
 
-        $details = UserDetail::findOrFail($account->id);
+        $details = UserDetail::where('user_id', $account->id)->first();
         if (request('mobile_no')) $details->mobile_no = request('mobile_no');
         if (request('address')) $details->address = request('address');
+
+        $account->save();
         $details->save();
 
         return redirect()->back()->withStatus('Account details have been changed.');
