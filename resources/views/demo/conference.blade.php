@@ -160,7 +160,8 @@
                     presenterIdentity: '{{ request('presenter') }}',
                     presenterVideoContainer: '#presenter-video-container',
                     frameRate: {{ request('bitrate') ?: 5  }},
-                    width: 144
+                    width: 144,
+                    duration: 3600
                 });
                 video.authenticate('{{$token}}').then(function () {
                     video.connect().then(function (room) {

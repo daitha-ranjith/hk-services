@@ -45,6 +45,7 @@ class SendEmail implements ShouldQueue
         $to_emails = array_filter(explode(',', $this->data['to']));
         $cc_emails = array_filter(explode(',', $this->data['cc']));
         $bcc_emails = array_filter(explode(',', $this->data['bcc']));
+        $reply_to_emails = array_filter(explode(',', $this->data['reply_to']));
         $subject = $this->data['sender_name'];
 
         Mail::raw(
@@ -53,6 +54,7 @@ class SendEmail implements ShouldQueue
                 $to_emails,
                 $cc_emails,
                 $bcc_emails,
+                $reply_to_emails,
                 $subject
             ) {
             foreach ($to_emails as $email) {
@@ -66,6 +68,11 @@ class SendEmail implements ShouldQueue
             if ($bcc_emails) {
                 foreach ($bcc_emails as $email) {
                     $message->bcc($email);
+                }
+            }
+            if ($reply_to_emails) {
+                foreach ($reply_to_emails as $email) {
+                    $message->replyTo($email);
                 }
             }
             $message->subject($subject);

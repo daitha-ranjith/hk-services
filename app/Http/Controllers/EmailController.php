@@ -50,6 +50,7 @@ class EmailController extends Controller
             'to'  => request('to'),
             'cc'  => request('cc'),
             'bcc' => request('bcc'),
+            'reply_to' => (request('reply_to')) ?: request('sender_email'),
             'content' => request('content')
         ];
 
