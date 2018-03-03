@@ -57,6 +57,7 @@ class AccountController extends Controller
             if (request()->twilio_video) {
                 $validations = [
                     'twilio_video_account_sid' => 'required',
+                    'twilio_video_auth_token'  => 'required',
                     'twilio_video_api_key'     => 'required',
                     'twilio_video_api_secret'  => 'required'
                 ];
@@ -65,6 +66,7 @@ class AccountController extends Controller
                     'active' => true,
                     'params' => [
                         'twilio_video_account_sid' => request()->twilio_video_account_sid,
+                        'twilio_video_auth_token'  => request()->twilio_video_auth_token,
                         'twilio_video_api_key'     => request()->twilio_video_api_key,
                         'twilio_video_api_secret'  => request()->twilio_video_api_secret
                     ]
