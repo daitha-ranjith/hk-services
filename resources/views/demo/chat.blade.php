@@ -73,7 +73,7 @@
 
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Video Conference Demo</div>
+                    <div class="panel-heading">Chat Demo</div>
 
                     <div class="panel-body">
 
@@ -88,30 +88,12 @@
 
                         <hr>
 
-                        <!-- Video container -->
-                        <div class="col-md-8" id="videocon-container">
-                            <div id="presenter-video-container"></div>
-                            <div id="remote-video-container"></div>
-                            <div id="local-video-container"></div>
-                        </div>
-
-                        {{-- <h4>Bitrate Adjustment</h4>
-                        <hr>
-                        <div>
-                            <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                                <button type="button" class="btn btn-default bitrate-button">HD Audio (40kbps)</button>
-                                <button type="button" class="btn btn-default bitrate-button">Low Video + HD Audio (200kbps)</button>
-                                <button type="button" class="btn btn-default bitrate-button">SD Video + HD Audio (540kbps)</button>
-                                <button type="button" class="btn btn-default bitrate-button">HD Video + HD Audio (1.5Mbps)</button>
-                                <button type="button" class="btn btn-danger bitrate-button">Auto</button>
-                            </div>
-                        </div> --}}
-
                         <!-- Chat container -->
-                        <div class="col-md-4" id="chat-container">
+                        <div class="col-md-6" id="chat-container">
                             <h4>Chat</h4>
                             <hr>
                             <div>
+                                <p>Type in below..</p>
                                 <input class="form-control" id="chat-input" type="text">
                                 <br>
                             </div>
@@ -151,25 +133,6 @@
 
                 $('button#connect-button').attr('disabled', 'disabled');
                 $('a#disconnect-button').removeClass('disabled');
-
-                var video = new Video({
-                    room: room,
-                    identity: identity,
-                    localVideoContainer: '#local-video-container',
-                    remoteVideoContainer: '#remote-video-container',
-                    presenterInitiation: '{{ request('presenter') ?: false }}',
-                    presenterIdentity: '{{ request('presenter') }}',
-                    presenterVideoContainer: '#presenter-video-container',
-                    frameRate: {{ request('bitrate') ?: 5  }},
-                    width: 144,
-                    duration: 3600,
-                    record: true
-                });
-                video.authenticate('{{$token}}').then(function () {
-                    video.connect().then(function (room) {
-                        video.joinRoom(room);
-                    });
-                });
 
                 var chat = new Chat({
                     channel: room,
