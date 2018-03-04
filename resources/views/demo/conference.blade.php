@@ -61,10 +61,11 @@
 
 @section('content')
     @php
-        $access_token = 'uy0boiRWoZjMB1emLj9IOPyRyrMmUJEZE3zJYbWiAWksLSLKDirBadCG25df';
+        $access_token = 'vWyYNT5mhQhDoqsmDxd45dYa3n5bsb2tTVLx7nA8BTZ0MdvC12Vbr1js53kM';
         $url = "https://hk-services.herokuapp.com/api/authorize?access_token=" . $access_token;
         $data = json_decode(file_get_contents($url));
-        $token = $data->token;
+        $token = ($data) ? $data->token : 'invalid token';
+        // $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvYXBpL2F1dGhvcml6ZSIsImlhdCI6MTUyMDE3MjY4NSwiZXhwIjoxNTIwMTc2Mjg1LCJuYmYiOjE1MjAxNzI2ODUsImp0aSI6ImhmZ3FJUDh5djFqOXJHTEwiLCJzdWIiOjYsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.JDiHKU3YDsWmKo3QAXKUn-UpSZ0XtyTqFOWXrDtaJQY';
     @endphp
 
     <div class="container">
@@ -161,7 +162,8 @@
                     presenterVideoContainer: '#presenter-video-container',
                     frameRate: {{ request('bitrate') ?: 5  }},
                     width: 144,
-                    duration: 3600
+                    duration: 3600,
+                    record: true
                 });
                 video.authenticate('{{$token}}').then(function () {
                     video.connect().then(function (room) {

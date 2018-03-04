@@ -10,6 +10,9 @@ Route::group(['prefix' => 'video', 'middleware' => 'cors'], function () {
     });
     // Route::post('connect', 'ConferenceController@connect');
     // Route::post('disconnect', 'ConferenceController@disconnect');
+    Route::post('callback', function () {
+        return 'ok';
+    });
 });
 
 Route::group(['prefix' => 'sms', 'middleware' => 'cors'], function () {

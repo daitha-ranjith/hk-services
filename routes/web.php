@@ -33,3 +33,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 });
 
 Route::view('demo', 'demo.conference')->name('demo');
+
+Route::get('dev-testr', function () {
+    //
+});

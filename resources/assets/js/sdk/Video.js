@@ -21,7 +21,7 @@ class Video {
         this.frameRate = config.frameRate;
         this.width = config.width;
         this.height = config.height;
-        this.record = (config.record) ? 'true' : 'false'; // have to use the string version of the booleans as per the docs
+        this.record = config.record;
     }
 
     authenticate(token) {
@@ -30,7 +30,8 @@ class Video {
             url: this.baseUrl + '/api/video/authenticate?token=' + token,
             data: {
                 identity: this.identity,
-                room: this.room
+                room: this.room,
+                record: this.record
             },
             dataType: 'json',
             error: error => {
@@ -45,6 +46,9 @@ class Video {
     connect() {
         let video = {}
 
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+        if (this.width && !isSafari) video.width = this.width;
         if (this.height) video.height = this.height;
         if (this.frameRate) video.frameRate = this.frameRate;
 
@@ -55,8 +59,7 @@ class Video {
                 this.data.jwt,
                 {
                     name: this.room,
-                    tracks: localTracks,
-                    recordParticipantsOnConnect: this.record
+                    tracks: localTracks
                 }
             );
         });
@@ -77,12 +80,10 @@ class Video {
         });
 
         room.once('participantConnected', participant => {
-            console.log('connected', participant);
             this.attachRemoteVideo(participant);
         });
 
         room.once('participantDisconnected', participant => {
-            console.log('disconnected', participant);
             this.detachRemoteVideo(participant);
         });
 
@@ -97,11 +98,11 @@ class Video {
 
         let presenterConnected = true;
 
-        if (this.identity != this.presenterIdentity) {
+        if (this.identity !== this.presenterIdentity) {
             presenterConnected = false;
 
             room.participants.forEach(participant => {
-                if (participant.identity == this.presenterIdentity) {
+                if (participant.identity === this.presenterIdentity) {
                     presenterConnected = true;
                 }
             });
@@ -191,7 +192,7 @@ class Video {
                 });
             }
 
-            if (track.kind == 'audio') {
+            if (track.kind === 'audio') {
                  $('#plyr-mic-mute').on('click', () => {
                     if ( track.isEnabled ) {
                         track.disable();
