@@ -61,11 +61,11 @@
 
 @section('content')
     @php
-        $access_token = 'vWyYNT5mhQhDoqsmDxd45dYa3n5bsb2tTVLx7nA8BTZ0MdvC12Vbr1js53kM';
+        $access_token = 'uy0boiRWoZjMB1emLj9IOPyRyrMmUJEZE3zJYbWiAWksLSLKDirBadCG25df';
         $url = "https://hk-services.herokuapp.com/api/authorize?access_token=" . $access_token;
         $data = json_decode(file_get_contents($url));
         $token = ($data) ? $data->token : 'invalid token';
-        // $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvYXBpL2F1dGhvcml6ZSIsImlhdCI6MTUyMDE3MjY4NSwiZXhwIjoxNTIwMTc2Mjg1LCJuYmYiOjE1MjAxNzI2ODUsImp0aSI6ImhmZ3FJUDh5djFqOXJHTEwiLCJzdWIiOjYsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.JDiHKU3YDsWmKo3QAXKUn-UpSZ0XtyTqFOWXrDtaJQY';
+        // $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvYXBpL2F1dGhvcml6ZSIsImlhdCI6MTUyMDE5MTUzNiwiZXhwIjoxNTIwMTk1MTM2LCJuYmYiOjE1MjAxOTE1MzYsImp0aSI6Im9rY3FVNDFoVko0d2VBUmciLCJzdWIiOjYsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.I8dupU-bvCYMMT3u_ylQK9Hmld0cHTqdEjpRvz6WfUA';
     @endphp
 
     <div class="container">
@@ -73,7 +73,7 @@
 
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Conference Demo</div>
+                    <div class="panel-heading">Video Conference Demo</div>
 
                     <div class="panel-body">
 
@@ -118,6 +118,23 @@
                             <div id="messages-container"></div>
                         </div>
 
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">SMS Demo</div>
+                    <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="phone-number">Phone Number</label>
+                            <input type="text" class="form-control" id="phone-number" placeholder="+9199XXXX">
+                        </div>
+                        <div class="form-group">
+                            <label for="sms-message">Message</label>
+                            <textarea class="form-control" id="sms-message" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-default">Send</button>
+                        </form>
                     </div>
                 </div>
             </div>

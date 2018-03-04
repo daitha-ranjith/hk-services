@@ -16,8 +16,9 @@ class ChatController extends Controller
         }
 
         $identity = request()->has('identity') ? request('identity') : str_random(5);
+        $room = request('room');
 
-        $twilio = $this->setTwilio();
+        $twilio = $this->setTwilio($room);
         $twilio->setIdentity($identity);
         $twilio->generateToken();
 
@@ -30,12 +31,14 @@ class ChatController extends Controller
         ]);
     }
 
-    public function setTwilio()
+    public function setTwilio($room)
     {
         return new Twilio(
             request('accessToken')->config['chat']['params']['twilio_chat_account_sid'],
+            null,
             request('accessToken')->config['chat']['params']['twilio_chat_api_key'],
-            request('accessToken')->config['chat']['params']['twilio_chat_api_secret']
+            request('accessToken')->config['chat']['params']['twilio_chat_api_secret'],
+            $room
         );
     }
 }
