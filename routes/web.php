@@ -32,11 +32,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::post('register', 'Auth\RegisterController@register');
 });
 
-Route::group(['prefix' => 'demo', 'name' => 'demo'], function () {
-    Route::view('video', 'demo.video')->name('video');
-    Route::view('chat', 'demo.chat')->name('chat');
-    Route::view('sms', 'demo.sms')->name('sms');
-    Route::view('email', 'demo.email')->name('email');
+Route::group(['prefix' => 'demo'], function () {
+    Route::view('/', 'demo.index')->name('demo')->middleware('admin');
+    Route::view('video', 'demo.video')->name('demo.video');
+    Route::view('chat', 'demo.chat')->name('demo.chat');
+    Route::view('sms', 'demo.sms')->name('demo.sms')->middleware('admin');
+    Route::view('email', 'demo.email')->name('demo.email')->middleware('admin');
 });
 
 Route::get('dev-testr', function () {

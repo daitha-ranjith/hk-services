@@ -62,6 +62,9 @@
                                         <li>
                                             <a href="{{ route('admin.dashboard') }}">Services</a>
                                         </li>
+                                        <li>
+                                            <a href="{{ route('demo') }}">Demos</a>
+                                        </li>
                                     @else
                                         <li>
                                             <a href="{{ route('dashboard') }}">Dashboard</a>
