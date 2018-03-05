@@ -11,10 +11,6 @@ class EmailController extends Controller
 {
     public function send()
     {
-        if (! Service::email()->active) {
-            return response('The service has temporarily been stopped.', 503);
-        }
-
         // validate the request
         if (! request()->has('sender_email') ||
             ! request()->has('sender_name') ||

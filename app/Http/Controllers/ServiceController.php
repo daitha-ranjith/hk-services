@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Log;
+use Exception;
 use App\Service;
-use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
@@ -11,6 +12,16 @@ class ServiceController extends Controller
     {
         $service = request('service');
         $status = request('status');
+
+        try {
+            if ($status) {
+                exec('sudo supervisorctl start:hk-queue');
+            } else {
+                exec('sudo supervisorctl stop:hk-queue');
+            }
+        } catch (Exception $e) {
+            Log::error('Queue Error: ' . $e->getMessage());
+        }
 
         Service::where('name', $service)->update([
             'active' => $status

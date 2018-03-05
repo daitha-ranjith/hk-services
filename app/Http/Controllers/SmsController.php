@@ -12,10 +12,6 @@ class SmsController extends Controller
 {
     public function send()
     {
-        if (! Service::sms()->active) {
-            return response('The service has temporarily been stopped.', 503);
-        }
-
         // validate the request
         if (! request()->has('phone') ||
             ! request()->has('from') ||
