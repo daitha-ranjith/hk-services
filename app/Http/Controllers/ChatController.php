@@ -38,7 +38,8 @@ class ChatController extends Controller
             null,
             request('accessToken')->config['chat']['params']['twilio_chat_api_key'],
             request('accessToken')->config['chat']['params']['twilio_chat_api_secret'],
-            $room
+            $room,
+            request('accessToken')->user_id
         );
     }
 }

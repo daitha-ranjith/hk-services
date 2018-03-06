@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Service;
 use App\Services\Twilio;
+use App\Conference;
+use App\Participant;
 
 class VideoController extends Controller
 {
@@ -37,7 +39,71 @@ class VideoController extends Controller
             request('accessToken')->config['video']['params']['twilio_video_auth_token'],
             request('accessToken')->config['video']['params']['twilio_video_api_key'],
             request('accessToken')->config['video']['params']['twilio_video_api_secret'],
-            $room
+            $room,
+            request('accessToken')->user_id
         );
     }
+
+    public function callback($user_id)
+    {
+        $event = request('StatusCallbackEvent');
+
+        if ($event == 'room-created') {
+            $this->createRoom($user_id);
+        }
+
+        if ($event == 'participant-connected') {
+            $this->connectParticipant();
+        }
+
+        if ($event == 'participant-disconnected') {
+            $this->disconnectParticipant();
+        }
+
+        if ($event == 'room-ended') {
+            $this->endRoom();
+        }
+
+        return 'OK';
+    }
+
+    private function createRoom($user_id)
+    {
+        Conference::create([
+            'user_id' => $user_id,
+            'account_sid' => request('AccountSid'),
+            'sid' => request('RoomSid'),
+            'name' => request('RoomName'),
+            'status' => request('RoomStatus'),
+            'duration' => 0
+        ]);
+    }
+
+    private function connectParticipant()
+    {
+        $conference = Conference::where('sid', request('RoomSid'))->first();
+
+        Participant::create([
+            'conference_id' => $conference->id,
+            'sid' => request('ParticipantSid'),
+            'participant' => request('ParticipantIdentity'),
+            'duration' => 0
+        ]);
+    }
+
+    private function disconnectParticipant()
+    {
+        $participant = Participant::where('sid', request('ParticipantSid'))->first();
+        $participant->duration = request('ParticipantDuration');
+        $participant->save();
+    }
+
+    private function endRoom()
+    {
+        $room = Conference::where('sid', request('RoomSid'))->first();
+        $room->status = request('RoomStatus');
+        $room->duration = request('RoomDuration');
+        $room->save();
+    }
+
 }

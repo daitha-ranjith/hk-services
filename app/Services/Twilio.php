@@ -16,14 +16,16 @@ class Twilio
     protected $api_secret;
     protected $identity;
     protected $room;
+    protected $user_id;
 
-    public function __construct($account_sid, $auth_token, $api_key, $api_secret, $room)
+    public function __construct($account_sid, $auth_token, $api_key, $api_secret, $room, $user_id)
     {
         $this->account_sid = $account_sid;
         $this->auth_token = $auth_token;
         $this->api_key = $api_key;
         $this->api_secret = $api_secret;
         $this->room = $room;
+        $this->user_id = $user_id;
     }
 
     public function setIdentity($identity)
@@ -48,13 +50,15 @@ class Twilio
     {
         $client = new Client($this->account_sid, $this->auth_token);
 
+        $url = 'https://hk-services.herokuapp.com' . '/api/video/callback/' . $this->user_id;
+
         try {
             $room = $client->video->rooms->create([
                 'uniqueName' => $this->room,
                 'type' => 'group',
                 'recordParticipantsOnConnect' => $record,
-                'StatusCallbackMethod' => 'POST',
-                'statusCallback' => 'https://e09bd5be.ngrok.io/api/video/callback'
+                'statusCallbackMethod' => 'POST',
+                'statusCallback' => $url
             ]);
         } catch (RestException $e) {
             //

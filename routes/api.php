@@ -8,11 +8,8 @@ Route::group(['prefix' => 'video', 'middleware' => 'cors'], function () {
     Route::group(['middleware' => ['jwt.auth', 'check.token']], function () {
         Route::post('authenticate', 'VideoController@authenticate');
     });
-    // Route::post('connect', 'ConferenceController@connect');
-    // Route::post('disconnect', 'ConferenceController@disconnect');
-    Route::post('callback', function () {
-        return 'ok';
-    });
+
+    Route::post('callback/{user_id}', 'VideoController@callback');
 });
 
 Route::group(['prefix' => 'sms', 'middleware' => 'cors'], function () {
