@@ -159,7 +159,7 @@
                     presenterInitiation: '{{ request('presenter') ?: false }}',
                     presenterIdentity: '{{ request('presenter') }}',
                     presenterVideoContainer: '#presenter-video-container',
-                    frameRate: {{ request('bitrate') ?: 5  }},
+                    frameRate: {{ request('bitrate') ?: 72 }},
                     width: 144,
                     duration: 3600,
                     record: true
