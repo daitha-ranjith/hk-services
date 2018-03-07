@@ -160,7 +160,7 @@
                     presenterIdentity: '{{ request('presenter') }}',
                     presenterVideoContainer: '#presenter-video-container',
                     // frameRate: {{ request('bitrate') ?: 72 }},
-                    // width: 1080,
+                    width: 4000,
                     duration: 3600,
                     record: true
                 });
