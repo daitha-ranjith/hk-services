@@ -217,8 +217,7 @@ class Video {
         if (
             ! config.identity ||
             ! config.room ||
-            ! config.remoteVideoContainer ||
-            ! config.width
+            ! config.remoteVideoContainer
             )
         {
             alert('Config parameters are missing. Please refer to the documentation.');
