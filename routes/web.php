@@ -22,6 +22,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('sub-accounts/{subAccountId}/edit', 'AccountController@editSubAccount')->name('sub-accounts.edit');
         Route::put('sub-accounts/{subAccountId}', 'AccountController@updateSubAccount')->name('sub-accounts.update');
     });
+
+    Route::group(['prefix' => 'logs'], function () {
+        Route::get('sms', 'LogController@sms');
+        Route::get('smsData', 'LogController@smsData')->name('sms.data');
+        Route::get('email', 'LogController@email');
+    });
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {

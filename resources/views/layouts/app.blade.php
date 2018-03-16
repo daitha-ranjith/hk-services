@@ -69,6 +69,12 @@
                                         <li>
                                             <a href="{{ route('dashboard') }}">Dashboard</a>
                                         </li>
+                                        <li role="separator" class="divider"></li>
+                                        <li>
+                                            <a href="#">SMS Logs</a>
+                                            <a href="#">Email Logs</a>
+                                        </li>
+                                        <li role="separator" class="divider"></li>
                                         <li>
                                             <a href="#">Settings</a>
                                         </li>
