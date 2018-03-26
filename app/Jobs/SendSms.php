@@ -39,26 +39,31 @@ class SendSms implements ShouldQueue
             $this->data['sms']['params']['twilio_sms_auth_token']
         );
 
-        $response = $client->messages->create(
-            $this->data['phone'],
-            [
-                'from' => $this->data['from'],
-                'body' => $this->data['message'],
-                'statusCallback' => 'https://hk-services.herokuapp.com/api/sms/status/update'
-            ]
-        );
+        $phones = explode(',', $this->data['phone']);
 
-        preg_match('/sid=(.+?)]/', $response, $sid);
+        foreach($phones as $phone) {
+            $response = $client->messages->create(
+                $phone,
+                [
+                    'from' => $this->data['from'],
+                    'body' => $this->data['message'],
+                    // 'statusCallback' => 'https://hk-services.herokuapp.com/api/sms/status/update'
+                ]
+            );
 
-        SmsLog::create([
-            'sid' => $sid[1],
-            'token_id' => $this->data['token']['id'],
-            'sent_to' => $this->data['phone'],
-            'message' => $this->data['message'],
-            'status' => 'queued',
-            'characters' => strlen($this->data['message']),
-            'sent_at' => Carbon::now(),
-            'delivered_at' => null,
-        ]);
+            preg_match('/sid=(.+?)]/', $response, $sid);
+
+            SmsLog::create([
+                'sid' => $sid[1],
+                'token_id' => $this->data['token']['id'],
+                'sent_to' => $phone,
+                'message' => $this->data['message'],
+                'status' => 'queued',
+                'characters' => strlen($this->data['message']),
+                'sent_at' => Carbon::now(),
+                'delivered_at' => null,
+            ]);
+        }
+
     }
 }
