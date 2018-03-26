@@ -152,6 +152,10 @@
                 $('button#connect-button').attr('disabled', 'disabled');
                 $('a#disconnect-button').removeClass('disabled');
 
+                if (identity == '{{ request('presenter') }}') {
+                    var record = window.confirm('If you want to record, press OK.');
+                }
+
                 var video = new Video({
                     room: room,
                     identity: identity,
@@ -163,7 +167,7 @@
                     frameRate: {{ request('bitrate') ?: 72 }},
                     width: 4000,
                     duration: 3600,
-                    record: true
+                    record: record
                 });
                 video.authenticate('{{$token}}').then(function () {
                     video.connect().then(function (room) {
