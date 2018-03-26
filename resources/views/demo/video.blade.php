@@ -65,6 +65,7 @@
         $url = "https://hk-services.herokuapp.com/api/authorize?access_token=" . $access_token;
         $data = json_decode(file_get_contents($url));
         $token = ($data) ? $data->token : 'invalid token';
+        // $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvYXBpL2F1dGhvcml6ZSIsImlhdCI6MTUyMTMxMTk3MSwiZXhwIjoxNTIxMzE1NTcxLCJuYmYiOjE1MjEzMTE5NzEsImp0aSI6ImxzRjZaSEwyZThDQmNiWksiLCJzdWIiOjYsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.Rjrp7vZkDLFsIdFF1fnqhOkyTWsYDrN4xlBTHuEYGko';
     @endphp
 
     <div class="container">
@@ -159,7 +160,7 @@
                     presenterInitiation: '{{ request('presenter') ?: false }}',
                     presenterIdentity: '{{ request('presenter') }}',
                     presenterVideoContainer: '#presenter-video-container',
-                    // frameRate: {{ request('bitrate') ?: 72 }},
+                    frameRate: {{ request('bitrate') ?: 72 }},
                     width: 4000,
                     duration: 3600,
                     record: true

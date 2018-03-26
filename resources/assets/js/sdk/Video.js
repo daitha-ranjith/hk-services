@@ -53,7 +53,8 @@ class Video {
         if (this.frameRate) video.frameRate = this.frameRate;
 
         return TwilioVideo.createLocalTracks({
-            video: video
+            video: video,
+            audio: true
         }).then(localTracks => {
             return TwilioVideo.connect(
                 this.data.jwt,
@@ -102,7 +103,7 @@ class Video {
             presenterConnected = false;
 
             room.participants.forEach(participant => {
-                if (participant.identity === this.presenterIdentity) {
+                if (participant.identity == this.presenterIdentity) {
                     presenterConnected = true;
                 }
             });
@@ -192,7 +193,7 @@ class Video {
                 });
             }
 
-            if (track.kind === 'audio') {
+            if (track.kind == 'audio') {
                  $('#plyr-mic-mute').on('click', () => {
                     if ( track.isEnabled ) {
                         track.disable();
