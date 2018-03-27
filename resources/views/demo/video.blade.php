@@ -74,7 +74,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">Video Conference Demo</div>
-                    @if (request('email') === env('ADMIN_EMAIL') || cache(request('ctoken')) === 601)
+                    @if (env('ADMIN_EMAIL') === (request('email') ?: '') || cache(request('ctoken') ?: '') === 601)
                         <div class="panel-body">
 
                             <form class="form-inline" id="conference">
