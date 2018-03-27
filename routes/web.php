@@ -44,8 +44,28 @@ Route::group(['prefix' => 'demo'], function () {
     Route::view('chat', 'demo.chat')->name('demo.chat');
     Route::view('sms', 'demo.sms')->name('demo.sms')->middleware('admin');
     Route::view('email', 'demo.email')->name('demo.email')->middleware('admin');
+
+    Route::post('email-invite', function () {
+        $emails = explode(',', request('emails'));
+        $room = request('room');
+
+        $ctoken = str_random(60);
+        $expiresAfter = 1;
+        cache()->put($ctoken, 601, $expiresAfter);
+
+        foreach ($emails as $email) {
+            $url = env('APP_URL') . "/demo/video?email={$email}&room={$room}&ctoken={$ctoken}";
+            $content = "Join the conference by clicking on this link: {$url}";
+            \Mail::raw($content, function ($message) use ($email) {
+                $message->to($email);
+                $message->subject('Video Chat Conference Invite | Healthkon');
+            });
+        }
+
+        return redirect()->back()->with('status', 'Successfully Invited!');
+    })->name('email-invite');
 });
 
 Route::get('dev-testr', function () {
-    //
+    return [cache('invite-token'), route('demo.video')];
 });
