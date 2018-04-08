@@ -10,7 +10,7 @@
                         {{ session('status') }}
                     </div>
                 @endif
-                <div class="panel-heading">SMS Logs</div>
+                <div class="panel-heading">Email Logs</div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -22,32 +22,32 @@
                     <table class="table table-condensed table-hover">
                         <thead>
                             <tr>
-                                <th>SID</th>
-                                <th>Mobile</th>
-                                <th>Message</th>
-                                <th>Characters</th>
-                                <th>Status</th>
-                                <th>Sent At</th>
-                                <th>Delivered At</th>
+                                <th>To</th>
+                                <th>Subject</th>
+                                <th>Content</th>
+                                <th>Other Details</th>
+                                <th>Created At</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($messages as $message)
+                            @foreach($emails as $email)
                                 <tr>
-                                    <td>{{ $message->sid }}</td>
-                                    <td>{{ $message->sent_to }}</td>
-                                    <td>{{ $message->message }}</td>
-                                    <td>{{ $message->characters }}</td>
-                                    <td>{{ $message->status }}</td>
-                                    <td>{{ $message->sent_at }}</td>
-                                    <td>{{ $message->delivered }}</td>
+                                    <td>{{ getStringFromJson($email['email']['to']) }}</td>
+                                    <td>{{ $email['email']['subject'] }}</td>
+                                    <td>{{ $email['email']['content'] }}</td>
+                                    <td>
+                                        CC: {{ getStringFromJson($email['email']['cc']) }}
+                                        <br>
+                                        BCC: {{ getStringFromJson($email['email']['bcc']) }}
+                                    </td>
+                                    <td>{{ $email->created_at }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
 
                     <div class="text-center">
-                        {{ $messages->links() }}
+                        {{ $emails->links() }}
                     </div>
                 </div>
             </div>
@@ -57,7 +57,8 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('js/see-more.min.js') }}"></script>
     <script>
-        // ..
+        $('td').shorten({"showChars":25,"moreText":"See More","lessText":"Less"});
     </script>
 @endsection
