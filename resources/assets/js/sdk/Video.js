@@ -76,17 +76,14 @@ class Video {
             }
         }
 
-        room.participants.forEach(participant => {
-            this.attachRemoteVideo(participant);
-        });
+        room.participants.forEach(participant => this.attachRemoteVideo(participant));
+        room.once('participantConnected', participant => this.attachRemoteVideo(participant));
+        room.once('participantDisconnected', participant => this.detachRemoteVideo(participant));
+        room.on('participantConnected', participant => this.attachRemoteVideo(participant));
+        room.on('participantDisconnected', participant => this.detachRemoteVideo(participant));
 
-        room.once('participantConnected', participant => {
-            this.attachRemoteVideo(participant);
-        });
-
-        room.once('participantDisconnected', participant => {
-            this.detachRemoteVideo(participant);
-        });
+        // if room is disconnected
+        room.on('disconnected', () => this.disconnect(room));
 
         return {
             status: true,
@@ -95,8 +92,6 @@ class Video {
     }
 
     isPresenterConnected(room) {
-        const localParticipant = room.localParticipant;
-
         let presenterConnected = true;
 
         if (this.identity !== this.presenterIdentity) {
@@ -118,7 +113,7 @@ class Video {
         return true;
     }
 
-    attachRemoteVideo(participant, track) {
+    attachRemoteVideo(participant) {
         let container = $(this.remoteVideoContainer);
 
         const div = document.createElement('div');
@@ -157,6 +152,7 @@ class Video {
         const div =  document.createElement('div');
         const video = document.createElement('video');
 
+        div.setAttribute('id', participant.sid);
         video.setAttribute('controls', true);
         video.setAttribute('autoplay', true);
         video.setAttribute('muted', true);
@@ -164,7 +160,9 @@ class Video {
         const mediaStream = new MediaStream;
 
         participant.tracks.forEach(track => {
-            mediaStream.addTrack(track.mediaStreamTrack);
+            if (track.kind == 'video') {
+                mediaStream.addTrack(track.mediaStreamTrack);
+            }
         });
 
         video.srcObject = mediaStream;
@@ -208,6 +206,14 @@ class Video {
             }
 
         });
+    }
+
+    disconnect(room) {
+        this.detachRemoteVideo(room.localParticipant);
+
+        room.participants.forEach(this.detachRemoteVideo);
+
+        room = null;
     }
 
     detachRemoteVideo(participant) {
