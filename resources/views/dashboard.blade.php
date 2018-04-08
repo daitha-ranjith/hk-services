@@ -10,17 +10,20 @@
                         {{ session('status') }}
                     </div>
                 @endif
-                <div class="panel-heading">Dashboard</div>
 
+                <div class="panel-heading">Video Conferences</div>
                 <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                    //
+                </div>
 
-                    Analytics..
+                <div class="panel-heading">Messages</div>
+                <div class="panel-body">
+                    //
+                </div>
 
+                <div class="panel-heading">Emails</div>
+                <div class="panel-body">
+                    //
                 </div>
             </div>
         </div>
