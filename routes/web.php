@@ -24,9 +24,9 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['prefix' => 'logs'], function () {
-        Route::get('video', 'LogController@video');
-        Route::get('sms', 'LogController@sms');
-        Route::get('email', 'LogController@email');
+        Route::get('video', 'LogController@video')->name('logs.video');
+        Route::get('sms', 'LogController@sms')->name('logs.sms');
+        Route::get('email', 'LogController@email')->name('logs.email');
     });
 });
 

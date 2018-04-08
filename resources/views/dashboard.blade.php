@@ -11,22 +11,32 @@
                     </div>
                 @endif
 
-                <div class="panel-heading">Video Conferences</div>
+                <div class="panel-heading">Dashboard</div>
                 <div class="panel-body">
-                    //
+                    {!! $videoChart->html() !!}
+                </div>
+                <hr>
+                <div class="panel-body">
+                    <div class="col-md-6">
+                        {!! $smsChart->html() !!}
+                    </div>
+                    <div class="col-md-6">
+                        {!! $emailChart->html() !!}
+                    </div>
                 </div>
 
-                <div class="panel-heading">Messages</div>
-                <div class="panel-body">
-                    //
-                </div>
-
-                <div class="panel-heading">Emails</div>
-                <div class="panel-body">
-                    //
-                </div>
+                <br>
+                <br>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    {!! Charts::scripts() !!}
+
+    {!! $videoChart->script() !!}
+    {!! $smsChart->script() !!}
+    {!! $emailChart->script() !!}
 @endsection
