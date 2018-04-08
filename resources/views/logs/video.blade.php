@@ -17,7 +17,7 @@
                 <div class="panel-heading">Video Logs</div>
 
                 <div class="panel-body">
-                    <table class="table table-condensed table-hover" id="sms-table">
+                    <table class="table table-condensed table-hover">
                         <thead>
                             <tr>
                                 <th>Room SID</th>
@@ -41,6 +41,7 @@
                             @endforeach
                         </tbody>
                     </table>
+
                     <div class="text-center">
                         {{ $conferences->links() }}
                     </div>

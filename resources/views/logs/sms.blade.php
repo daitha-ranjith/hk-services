@@ -23,19 +23,36 @@
                         </div>
                     @endif
 
-                    <table class="table table-bordered" id="sms-table">
+                    <table class="table table-condensed table-hover">
                         <thead>
                             <tr>
                                 <th>SID</th>
                                 <th>Mobile</th>
                                 <th>Message</th>
+                                <th>Characters</th>
                                 <th>Status</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
+                                <th>Sent At</th>
+                                <th>Delivered At</th>
                             </tr>
                         </thead>
+                        <tbody>
+                            @foreach($messages as $message)
+                                <tr>
+                                    <td>{{ $message->sid }}</td>
+                                    <td>{{ $message->sent_to }}</td>
+                                    <td>{{ $message->message }}</td>
+                                    <td>{{ $message->characters }}</td>
+                                    <td>{{ $message->status }}</td>
+                                    <td>{{ $message->sent_at }}</td>
+                                    <td>{{ $message->delivered }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
                     </table>
 
+                    <div class="text-center">
+                        {{ $messages->links() }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -44,23 +61,7 @@
 @endsection
 
 @section('scripts')
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
     <script>
-        $(function() {
-            $('#sms-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: '{!! route('sms.data') !!}',
-                columns: [
-                    { data: 'sid', name: 'sid' },
-                    { data: 'sent_to', name: 'sent_to' },
-                    { data: 'message', name: 'message' },
-                    { data: 'status', name: 'status' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'updated_at', name: 'updated_at' }
-                ]
-            });
-        });
-    </script>
+        // ..
+   </script>
 @endsection

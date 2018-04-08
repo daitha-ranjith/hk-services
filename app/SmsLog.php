@@ -20,4 +20,11 @@ class SmsLog extends Model
         'sent_at',
         'delivered_at'
     ];
+
+    public function getDeliveredAttribute()
+    {
+        return ($this->status == 'delivered')
+                ? $this->delivered_at
+                : null;
+    }
 }

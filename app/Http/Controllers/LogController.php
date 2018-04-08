@@ -16,7 +16,9 @@ class LogController extends Controller
 
     public function sms()
     {
-        return view('logs.sms');
+        $messages = SmsLog::paginate(10);
+
+        return view('logs.sms')->withMessages($messages);
     }
 
     public function email()
