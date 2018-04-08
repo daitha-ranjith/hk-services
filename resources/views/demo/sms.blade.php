@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+    @php
+        $url = env('APP_URL') . '/api/sms/send?access_token=' . env('DEMO_ACCESS_TOKEN');
+    @endphp
     <div class="container">
         <div class="row">
 
@@ -9,7 +12,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">SMS Demo</div>
                     <div class="panel-body">
-                    <form action="https://hk-services.herokuapp.com/api/sms/send?access_token=uy0boiRWoZjMB1emLj9IOPyRyrMmUJEZE3zJYbWiAWksLSLKDirBadCG25df" method="POST">
+                    <form action="{{ $url }}" method="POST">
                         <div class="form-group">
                             <label for="phone-number">Phone Number</label>
                             <input type="text" name="phone" class="form-control" id="phone-number" placeholder="+9199XXXX">

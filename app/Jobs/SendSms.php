@@ -47,7 +47,7 @@ class SendSms implements ShouldQueue
                 [
                     'from' => $this->data['from'],
                     'body' => $this->data['message'],
-                    // 'statusCallback' => 'https://hk-services.herokuapp.com/api/sms/status/update'
+                    'statusCallback' => env('APP_URL') . '/api/sms/status/update'
                 ]
             );
 

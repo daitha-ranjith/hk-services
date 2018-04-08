@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+    @php
+        $url = env('APP_URL') . '/api/email/send?access_token=' . env('DEMO_ACCESS_TOKEN');
+    @endphp
     <div class="container">
         <div class="row">
 
@@ -9,7 +12,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">E-mail Demo</div>
                     <div class="panel-body">
-                    <form action="https://hk-services.herokuapp.com/api/email/send?access_token=uy0boiRWoZjMB1emLj9IOPyRyrMmUJEZE3zJYbWiAWksLSLKDirBadCG25df" method="POST">
+                    <form action="{{ $url }}" method="POST">
                         <div class="form-group">
                             <label for="to">To Email (s)</label>
                             <input type="text" name="to" class="form-control" id="to" placeholder="ex@example.com,ex@ex.com">

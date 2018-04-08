@@ -61,8 +61,7 @@
 
 @section('content')
     @php
-        $access_token = 'uy0boiRWoZjMB1emLj9IOPyRyrMmUJEZE3zJYbWiAWksLSLKDirBadCG25df';
-        $url = "https://hk-services.herokuapp.com/api/authorize?access_token=" . $access_token;
+        $url = env('APP_URL') . '/api/authorize?access_token=' . env('DEMO_ACCESS_TOKEN');
         $data = json_decode(file_get_contents($url));
         $token = ($data) ? $data->token : 'invalid token';
         // $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvYXBpL2F1dGhvcml6ZSIsImlhdCI6MTUyMDE5MTUzNiwiZXhwIjoxNTIwMTk1MTM2LCJuYmYiOjE1MjAxOTE1MzYsImp0aSI6Im9rY3FVNDFoVko0d2VBUmciLCJzdWIiOjYsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.I8dupU-bvCYMMT3u_ylQK9Hmld0cHTqdEjpRvz6WfUA';
