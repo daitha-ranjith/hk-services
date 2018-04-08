@@ -13,12 +13,6 @@
                 <div class="panel-heading">SMS Logs</div>
 
                 <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
                     <table class="table table-condensed table-hover">
                         <thead>
                             <tr>

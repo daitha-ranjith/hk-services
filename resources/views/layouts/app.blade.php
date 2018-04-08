@@ -57,6 +57,9 @@
                                 <ul class="dropdown-menu">
                                     @if (isAdmin())
                                         <li>
+                                            <a href="{{ route('dashboard') }}">Dashboard</a>
+                                        </li>
+                                        <li>
                                             <a href="{{ route('accounts.index') }}">Accounts</a>
                                         </li>
                                         <li>
@@ -67,9 +70,9 @@
                                         </li>
                                         <li role="separator" class="divider"></li>
                                         <li>
-                                            <a href="#">Video Logs</a>
-                                            <a href="#">SMS Logs</a>
-                                            <a href="#">Email Logs</a>
+                                            <a href="{{ route('logs.video') }}">Video Logs</a>
+                                            <a href="{{ route('logs.sms') }}">SMS Logs</a>
+                                            <a href="{{ route('logs.email') }}">Email Logs</a>
                                         </li>
                                         <li role="separator" class="divider"></li>
                                     @else
