@@ -9,7 +9,7 @@ Route::group(['prefix' => 'video', 'middleware' => 'cors'], function () {
         Route::post('authenticate', 'VideoController@authenticate');
     });
 
-    Route::post('callback/{user_id}', 'VideoController@callback');
+    Route::post('callback/{token_id}', 'VideoController@callback');
 });
 
 Route::group(['prefix' => 'sms', 'middleware' => 'cors'], function () {

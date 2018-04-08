@@ -40,16 +40,16 @@ class VideoController extends Controller
             request('accessToken')->config['video']['params']['twilio_video_api_key'],
             request('accessToken')->config['video']['params']['twilio_video_api_secret'],
             $room,
-            request('accessToken')->user_id
+            request('accessToken')->id
         );
     }
 
-    public function callback($user_id)
+    public function callback($token_id)
     {
         $event = request('StatusCallbackEvent');
 
         if ($event == 'room-created') {
-            $this->createRoom($user_id);
+            $this->createRoom($token_id);
         }
 
         if ($event == 'participant-connected') {
@@ -67,12 +67,12 @@ class VideoController extends Controller
         return 'OK';
     }
 
-    private function createRoom($user_id)
+    private function createRoom($token_id)
     {
         Conference::create([
-            'user_id' => $user_id,
-            'account_sid' => request('AccountSid'),
             'sid' => request('RoomSid'),
+            'token_id' => $token_id,
+            'account_sid' => request('AccountSid'),
             'name' => request('RoomName'),
             'status' => request('RoomStatus'),
             'duration' => 0

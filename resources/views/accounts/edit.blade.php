@@ -105,7 +105,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('twilio_video_auth_token') ? ' has-error' : '' }}">
-                                <label for="twilio-video-auth-token" class="col-sm-2 control-label">Account SID</label>
+                                <label for="twilio-video-auth-token" class="col-sm-2 control-label">Auth Token</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control" id="twilio-video-auth-token" placeholder="Auth Token" name="twilio_video_auth_token" value="{{ $video['active'] ? $video['params']['twilio_video_auth_token'] : '' }}" required autocomplete="off">
                                     @if ($errors->has('twilio_video_auth_token'))
