@@ -65,16 +65,17 @@
                                         <li>
                                             <a href="{{ route('demo') }}">Demos</a>
                                         </li>
-                                    @else
-                                        <li>
-                                            <a href="{{ route('dashboard') }}">Dashboard</a>
-                                        </li>
                                         <li role="separator" class="divider"></li>
                                         <li>
+                                            <a href="#">Video Logs</a>
                                             <a href="#">SMS Logs</a>
                                             <a href="#">Email Logs</a>
                                         </li>
                                         <li role="separator" class="divider"></li>
+                                    @else
+                                        <li>
+                                            <a href="{{ route('dashboard') }}">Dashboard</a>
+                                        </li>
                                         <li>
                                             <a href="#">Settings</a>
                                         </li>

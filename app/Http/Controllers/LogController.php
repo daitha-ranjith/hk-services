@@ -3,17 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\SmsLog;
-use Yajra\Datatables\Datatables;
+use App\Conference;
+use App\EmailLog;
 
 class LogController extends Controller
 {
-    public function sms()
+    public function video()
     {
-        return view('logs.sms');
+        $conferences = Conference::withCount('participants')->paginate(25);
+
+        return view('logs.video')->withConferences($conferences);
     }
 
-    public function smsData()
+    public function sms()
     {
-        return Datatables::of(SmsLog::query())->make(true);
+        $messages = SmsLog::paginate(25);
+
+        return view('logs.sms')->withMessages($messages);
     }
+
+    public function email()
+    {
+        $emails = EmailLog::paginate(25);
+
+        return view('logs.email')->withEmails($emails);
+    }
+
 }

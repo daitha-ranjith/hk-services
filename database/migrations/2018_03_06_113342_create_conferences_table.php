@@ -15,15 +15,15 @@ class CreateConferencesTable extends Migration
     {
         Schema::create('conferences', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->string('account_sid')->index();
             $table->string('sid')->unique();
+            $table->integer('token_id')->unsigned();
+            $table->string('account_sid')->index();
             $table->string('name');
             $table->string('status');
             $table->integer('duration');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('token_id')->references('id')->on('tokens')->onDelete('cascade');
         });
     }
 
