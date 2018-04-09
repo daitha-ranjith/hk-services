@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
+    protected $fillable = [
+        'name', 'active', 'settings'
+    ];
+
     protected $casts = [
         'settings' => 'array'
     ];

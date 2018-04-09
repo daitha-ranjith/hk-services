@@ -50,7 +50,7 @@ Route::group(['prefix' => 'demo'], function () {
         $room = request('room');
 
         $ctoken = str_random(60);
-        $expiresAfter = 1;
+        $expiresAfter = 15;
         cache()->put($ctoken, 601, $expiresAfter);
 
         foreach ($emails as $email) {
