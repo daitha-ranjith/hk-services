@@ -61,10 +61,18 @@
 
 @section('content')
     @php
-        $url = env('APP_URL') . '/api/authorize?access_token=' . env('DEMO_ACCESS_TOKEN');
-        $data = json_decode(file_get_contents($url));
-        $token = ($data) ? $data->token : 'invalid token';
-        // $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvYXBpL2F1dGhvcml6ZSIsImlhdCI6MTUyMTMxMTk3MSwiZXhwIjoxNTIxMzE1NTcxLCJuYmYiOjE1MjEzMTE5NzEsImp0aSI6ImxzRjZaSEwyZThDQmNiWksiLCJzdWIiOjYsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.Rjrp7vZkDLFsIdFF1fnqhOkyTWsYDrN4xlBTHuEYGko';
+        if ( app()->environment() == 'production' ) {
+            $url = env('APP_URL') . '/api/authorize?access_token=' . env('DEMO_ACCESS_TOKEN');
+            $data = json_decode(file_get_contents($url));
+            $token = ($data) ? $data->token : 'invalid token';
+
+            $canAccess = env('ADMIN_EMAIL') === (request('email') ?: '') ||
+                         cache(request('ctoken') ?: '') === 601;
+        } else {
+            $token = env('LOCAL_JWT_TOKEN');
+
+            $canAccess = true;
+        }
     @endphp
 
     <div class="container">
@@ -73,7 +81,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">Video Conference Demo</div>
-                    @if (env('ADMIN_EMAIL') === (request('email') ?: '') || cache(request('ctoken') ?: '') === 601)
+                    @if ($canAccess)
                         <div class="panel-body">
 
                             <form class="form-inline" id="conference">
