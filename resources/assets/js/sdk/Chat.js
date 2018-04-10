@@ -64,7 +64,7 @@ class Chat {
                .then(channel => {
                     this.pushChatInfo('Joined as ' + this.identity);
                 })
-                .catch(() => {
+                .catch(err => {
                     this.pushChatInfo('Joined as ' + this.identity);
                 });
 
