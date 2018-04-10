@@ -137,7 +137,7 @@ class Video {
         video.srcObject = mediaStream;
 
         div.appendChild(video);
-        container.appendChild(div);
+        container.append(div);
 
         const controls = this.getRemotePlayerControls();
 
