@@ -17,14 +17,12 @@
 
                     <ul>
                         <li>
-                            <a href="{{ route('demo.video', ['email' => auth()->user()->email, 'room' => 'demo', 'bitrate' => 1]) }}">
+                            <a href="{{ route('demo.video', ['email' => auth()->user()->email, 'bitrate' => 72]) }}">
                                 Video
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('demo.chat', [
-                                    'email' => 'os'
-                                ]) }}">
+                            <a href="{{ route('demo.chat', ['email' => auth()->user()->email]) }}">
                                 Chat
                             </a>
                         </li>
