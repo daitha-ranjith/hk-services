@@ -60,9 +60,13 @@ class Chat {
     }
 
     setupChatConversation(channel) {
-        channel.join().then(channel => {
-            this.pushChatInfo('Joined as ' + this.identity);
-        });
+        channel.join()
+               .then(channel => {
+                    this.pushChatInfo('Joined as ' + this.identity);
+                })
+                .catch(() => {
+                    this.pushChatInfo('Joined as ' + this.identity);
+                });
 
         channel.on('messageAdded', message => {
             this.pushChatMessage(message.author, message.body);
