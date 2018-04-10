@@ -70,6 +70,8 @@ class Video {
         this.attachLocalVideo(room.localParticipant);
 
         if (this.presenterInitiation && ! this.isPresenterConnected(room)) {
+            room.disconnect();
+
             return {
                 status: false,
                 message: 'Waiting for presenter!'
@@ -77,8 +79,8 @@ class Video {
         }
 
         room.participants.forEach(participant => this.attachRemoteVideo(participant));
-        room.once('participantConnected', participant => this.attachRemoteVideo(participant));
-        room.once('participantDisconnected', participant => this.detachRemoteVideo(participant));
+        // room.once('participantConnected', participant => this.attachRemoteVideo(participant));
+        // room.once('participantDisconnected', participant => this.detachRemoteVideo(participant));
         room.on('participantConnected', participant => this.attachRemoteVideo(participant));
         room.on('participantDisconnected', participant => this.detachRemoteVideo(participant));
 
@@ -114,13 +116,19 @@ class Video {
     }
 
     attachRemoteVideo(participant) {
-        let container = $(this.remoteVideoContainer);
+        let container;
+
+        if (participant.identity == this.presenterIdentity) {
+            container = $(this.presenterVideoContainer);
+        } else {
+            container = $(this.remoteVideoContainer);
+        }
 
         const div = document.createElement('div');
-        const video = document.createElement('video');
-
         div.setAttribute('id', participant.sid);
         div.setAttribute('class', 'remote-video-div');
+
+        const video = document.createElement('video');
         video.setAttribute('controls', true);
         video.setAttribute('autoplay', true);
 

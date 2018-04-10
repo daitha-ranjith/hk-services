@@ -173,7 +173,7 @@
                     identity: identity,
                     localVideoContainer: '#local-video-container',
                     remoteVideoContainer: '#remote-video-container',
-                    presenterInitiation: '{{ request('presenter') ?: false }}',
+                    presenterInitiation: '{{ request('presenter') ? true : false }}',
                     presenterIdentity: '{{ request('presenter') }}',
                     presenterVideoContainer: '#presenter-video-container',
                     frameRate: {{ request('bitrate') ?: 72 }},
