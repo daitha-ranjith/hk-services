@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Log;
+use Exception;
 use App\Service;
-use App\Services\Twilio;
 use App\Conference;
 use App\Participant;
+use App\Services\Twilio;
 
 class VideoController extends Controller
 {
@@ -48,20 +50,26 @@ class VideoController extends Controller
     {
         $event = request('StatusCallbackEvent');
 
-        if ($event == 'room-created') {
-            $this->createRoom($token_id);
-        }
+        try {
+            if ($event == 'room-created') {
+                $this->createRoom($token_id);
+            }
 
-        if ($event == 'participant-connected') {
-            $this->connectParticipant();
-        }
+            if ($event == 'participant-connected') {
+                $this->connectParticipant();
+            }
 
-        if ($event == 'participant-disconnected') {
-            $this->disconnectParticipant();
-        }
+            if ($event == 'participant-disconnected') {
+                $this->disconnectParticipant();
+            }
 
-        if ($event == 'room-ended') {
-            $this->endRoom();
+            if ($event == 'room-ended') {
+                $this->endRoom();
+            }
+        } catch (Exception $e) {
+            Log::error('Video Callback Error: ' . $e->getMessage());
+
+            return response('NOT OK', 500);
         }
 
         return 'OK';

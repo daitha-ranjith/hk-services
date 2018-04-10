@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Conference extends Model
 {
     protected $fillable = [
-        'user_id', 'account_sid', 'sid', 'name',
+        'token_id', 'account_sid', 'sid', 'name',
         'status', 'duration'
     ];
 
