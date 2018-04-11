@@ -147,7 +147,10 @@ class Video {
                 });
                 // video.setAttribute('id', track.id);
             }
-
+            if (track.kind == 'audio') {
+                const audio = track.attach();
+                div.appendChild(audio);
+            }
             // mediaStream.addTrack(track.mediaStreamTrack);
         });
 
