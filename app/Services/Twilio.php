@@ -56,6 +56,7 @@ class Twilio
             $room = $client->video->rooms->create([
                 'uniqueName' => $this->room,
                 'type' => 'group',
+                'videoCodecs' => 'H264',
                 'recordParticipantsOnConnect' => $record,
                 'statusCallbackMethod' => 'POST',
                 'statusCallback' => $url
