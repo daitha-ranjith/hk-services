@@ -60,7 +60,8 @@ class Video {
                 this.data.jwt,
                 {
                     name: this.room,
-                    tracks: localTracks
+                    tracks: localTracks,
+                    preferredVideoCodecs: ['H264']
                 }
             );
         });
@@ -128,30 +129,38 @@ class Video {
         div.setAttribute('id', participant.sid);
         div.setAttribute('class', 'remote-video-div');
 
-        const video = document.createElement('video');
-        video.setAttribute('controls', true);
-        video.setAttribute('autoplay', true);
+        // const video = document.createElement('video');
+        // video.setAttribute('controls', true);
+        // video.setAttribute('autoplay', true);
 
-        const mediaStream = new MediaStream;
+        // const mediaStream = new MediaStream;
 
         participant.on('trackAdded', track => {
             if (track.kind == 'video') {
-                video.setAttribute('id', track.id);
+                const video = track.attach();
+                div.appendChild(video);
+
+                const controls = this.getRemotePlayerControls();
+
+                plyr.setup(video, {
+                    html: controls
+                });
+                // video.setAttribute('id', track.id);
             }
 
-            mediaStream.addTrack(track.mediaStreamTrack);
+            // mediaStream.addTrack(track.mediaStreamTrack);
         });
 
-        video.srcObject = mediaStream;
+        // video.srcObject = mediaStream;
 
-        div.appendChild(video);
+        // div.appendChild(video);
         container.append(div);
 
-        const controls = this.getRemotePlayerControls();
+        // const controls = this.getRemotePlayerControls();
 
-        plyr.setup(video, {
-            html: controls
-        });
+        // plyr.setup(video, {
+        //     html: controls
+        // });
     }
 
     attachLocalVideo(participant) {
