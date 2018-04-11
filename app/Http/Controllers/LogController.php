@@ -10,21 +10,21 @@ class LogController extends Controller
 {
     public function video()
     {
-        $conferences = Conference::withCount('participants')->paginate(25);
+        $conferences = Conference::withCount('participants')->latest()->paginate(25);
 
         return view('logs.video')->withConferences($conferences);
     }
 
     public function sms()
     {
-        $messages = SmsLog::paginate(25);
+        $messages = SmsLog::latest()->paginate(25);
 
         return view('logs.sms')->withMessages($messages);
     }
 
     public function email()
     {
-        $emails = EmailLog::paginate(25);
+        $emails = EmailLog::latest()->paginate(25);
 
         return view('logs.email')->withEmails($emails);
     }
