@@ -21,7 +21,11 @@ class CreateParticipantsTable extends Migration
             $table->integer('duration');
             $table->timestamps();
 
-            $table->foreign('conference_id')->references('id')->on('conferences')->onDelete('cascade');
+            $table->foreign('conference_id')
+                  ->references('id')
+                  ->on('conferences')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
             $table->unique(['conference_id', 'participant']);
         });
     }

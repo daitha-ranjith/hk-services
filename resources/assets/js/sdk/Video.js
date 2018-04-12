@@ -80,8 +80,6 @@ class Video {
         }
 
         room.participants.forEach(participant => this.attachRemoteVideo(participant));
-        // room.once('participantConnected', participant => this.attachRemoteVideo(participant));
-        // room.once('participantDisconnected', participant => this.detachRemoteVideo(participant));
         room.on('participantConnected', participant => this.attachRemoteVideo(participant));
         room.on('participantDisconnected', participant => this.detachRemoteVideo(participant));
 
@@ -232,8 +230,6 @@ class Video {
         this.detachRemoteVideo(room.localParticipant);
 
         room.participants.forEach(this.detachRemoteVideo);
-
-        room = null;
     }
 
     detachRemoteVideo(participant) {

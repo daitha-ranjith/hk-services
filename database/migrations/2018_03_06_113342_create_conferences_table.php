@@ -23,7 +23,11 @@ class CreateConferencesTable extends Migration
             $table->integer('duration');
             $table->timestamps();
 
-            $table->foreign('token_id')->references('id')->on('tokens')->onDelete('cascade');
+            $table->foreign('token_id')
+                  ->references('id')
+                  ->on('tokens')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
         });
     }
 

@@ -25,7 +25,11 @@ class CreateSmsLogsTable extends Migration
             $table->datetime('delivered_at')->nullable();
             $table->timestamps();
 
-            $table->foreign('token_id')->references('id')->on('tokens');
+            $table->foreign('token_id')
+                  ->references('id')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade')
+                  ->on('tokens');
         });
     }
 

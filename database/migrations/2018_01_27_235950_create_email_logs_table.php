@@ -19,7 +19,10 @@ class CreateEmailLogsTable extends Migration
             $table->json('email');
             $table->timestamps();
 
-            $table->foreign('token_id')->references('id')->on('tokens');
+            $table->foreign('token_id')
+                  ->references('id')->on('tokens')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
         });
     }
 
