@@ -132,22 +132,35 @@ class Video {
         // video.setAttribute('autoplay', true);
 
         // const mediaStream = new MediaStream;
+        let participantAudio;
+        let participantVideo;
 
         participant.on('trackAdded', track => {
+            // first audio is received
+            if (track.kind == 'audio') {
+                participantAudio = track.attach();
+                div.appendChild(participantAudio);
+            }
+            // then video
             if (track.kind == 'video') {
-                const video = track.attach();
-                div.appendChild(video);
+                participantVideo = track.attach();
+                div.appendChild(participantVideo);
 
                 const controls = this.getRemotePlayerControls();
 
-                plyr.setup(video, {
+                let player = plyr.setup(participantVideo, {
                     html: controls
                 });
+
+                player[0].on('volumechange', event => {
+                    if (participantVideo.muted) {
+                        participantAudio.pause();
+                    } else {
+                        participantAudio.play();
+                    }
+                });
+
                 // video.setAttribute('id', track.id);
-            }
-            if (track.kind == 'audio') {
-                const audio = track.attach();
-                div.appendChild(audio);
             }
             // mediaStream.addTrack(track.mediaStreamTrack);
         });
@@ -210,7 +223,7 @@ class Video {
             }
 
             if (track.kind == 'audio') {
-                 $('#plyr-mic-mute').on('click', () => {
+                $('#plyr-mic-mute').on('click', () => {
                     if ( track.isEnabled ) {
                         track.disable();
                         $('.plyr-mic-icon').toggle();
